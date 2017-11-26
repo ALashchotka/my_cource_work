@@ -4,7 +4,7 @@ import reducers, { nextRootReducer } from '../reducers';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
-export function configureStore() {
+export default function configureStore() {
   const enhancer = compose(applyMiddleware(loggerMiddleware));
   const store = createStore(
     reducers,

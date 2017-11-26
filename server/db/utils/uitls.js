@@ -1,4 +1,3 @@
-const Mongoose = require('mongoose');
 const UserModel = require('../../model');
 
 module.exports.createNote = function createNote(data) {

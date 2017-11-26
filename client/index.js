@@ -7,7 +7,7 @@ import { connect, Provider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-client';
 
-import { configureStore } from './app/store';
+import configureStore from './app/store';
 import { App, Authorization, Main } from './app/features';
 
 const store = configureStore();

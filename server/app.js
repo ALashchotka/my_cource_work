@@ -31,7 +31,7 @@ app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({
   context: {
     token: request.headers.authorization,
     constructor: Connectors,
-  }
+  },
 })));
 
 app.use('/graphiql', graphiqlExpress({

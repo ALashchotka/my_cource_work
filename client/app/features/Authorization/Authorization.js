@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 import { images } from '../../images';
 import { mainColor } from '../../styles/colors';
@@ -131,6 +132,11 @@ class Authorization extends Component {
     );
   }
 }
+
+Authorization.propTypes = {
+  checkUserMutation: PropTypes.func.isRequired,
+  newUserMutation: PropTypes.func.isRequired,
+};
 
 const checkUserMutation = gql`
     mutation checkUser($email: String, $password: String) {
