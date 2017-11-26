@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { mainColor } from "../../constants/colors";
 
 const MARGIN_HORIZONTAL_VALUE = 50;
 
-export  default appStyles = StyleSheet.create({
+export const styles = StyleSheet.create({
   root: {
     height: '100%',
     backgroundColor: 'white',
@@ -12,16 +11,16 @@ export  default appStyles = StyleSheet.create({
     padding: 50,
     alignItems: 'center',
   },
-  formContainer:{
+  formContainer: {
     marginLeft: MARGIN_HORIZONTAL_VALUE,
     marginRight: MARGIN_HORIZONTAL_VALUE,
     paddingBottom: 100,
   },
-  textCenter:{
+  textCenter: {
     textAlign: 'center',
-    padding:5,
+    padding: 5,
   },
-  buttonGroup:{
+  buttonGroup: {
     marginTop: 40,
   },
   logoImage: {
@@ -38,9 +37,6 @@ export  default appStyles = StyleSheet.create({
     marginTop: 10,
   },
   signUpButton: {
-    paddingTop:10,
+    paddingTop: 10,
   },
-  keyboardAvoiding:{
-
-  }
 });

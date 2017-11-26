@@ -1,1 +1,3 @@
-export const mainColor = '#003d6a';
+export const colors = {
+  mainColor: '#003d6a',
+};

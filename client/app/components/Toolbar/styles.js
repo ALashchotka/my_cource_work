@@ -1,16 +1,16 @@
 import { StyleSheet } from 'react-native';
 
-export default toolBarStyles = StyleSheet.create({
+export const styles = StyleSheet.create({
   toolbar: {
     backgroundColor: '#2196F3',
     height: 56,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
   container: {
     backgroundColor: '#dddddd',
     height: 50,
     margin: 20,
     marginBottom: 0,
-    paddingLeft: 10
-  }
+    paddingLeft: 10,
+  },
 });

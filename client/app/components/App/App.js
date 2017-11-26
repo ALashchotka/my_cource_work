@@ -24,19 +24,19 @@ class App extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount () {
     this._getStorageValue(TOKEN)
-      .then((token)=>{
-        if(token){
+      .then((token) => {
+        if (token) {
           console.warn(token);
           Actions.main();
         } else {
           Actions.authorization();
         }
-      })
+      }),
   }
+  
   render () {
-
     return (
       <View>
         <ActivityIndicator size="large"></ActivityIndicator>
@@ -44,8 +44,5 @@ class App extends Component {
     )
   }
 }
-
-
-
 
 export default connect(({routes}) => ({routes}))(App)

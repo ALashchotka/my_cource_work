@@ -1,98 +1,87 @@
-import React, {Component} from 'react';
-import {ActivityIndicator, AsyncStorage, KeyboardAvoidingView, Button, Image, ToolbarAndroid, TouchableHighlight, View, Text, TextInput, StyleSheet} from 'react-native';
-import logo from '../../assets/images/bi_logo.png';
-import {mainColor} from "../../constants/colors";
-
-import {connect} from 'react-redux';
-import {Actions} from 'react-native-router-flux';
-
-import authorizationStyles from './authorizationStyles'
-
+import React, { Component } from 'react';
+import { KeyboardAvoidingView, Button, Image, View, Text, TextInput } from 'react-native';
+import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import { TOKEN } from "../../constants/session";
+import { Actions } from 'react-native-router-flux';
 
-import { setStorageValue } from "../../utils/storage";
+import logo from '../../assets/images/bi_logo.png';
+import { mainColor } from '../../constants/colors';
+import authorizationStyles from './authorizationStyles';
+import { TOKEN } from '../../constants/session';
+import { setStorageValue } from '../../utils/storage';
 
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-
-class Authorization extends Component{
-  constructor(props){
+class Authorization extends Component {
+  constructor(props) {
     super(props);
-    this._onChangeEmailInput = this._onChangeEmailInput.bind(this);
-    this._onChangePasswordInput = this._onChangePasswordInput.bind(this);
-    this._onSignUpButton = this._onSignUpButton.bind(this);
-    this._onLogInButton = this._onLogInButton.bind(this);
+    this.onChangeEmailInput = this.onChangeEmailInput.bind(this);
+    this.onChangePasswordInput = this.onChangePasswordInput.bind(this);
+    this.onSignUpButton = this.onSignUpButton.bind(this);
+    this.onLogInButton = this.onLogInButton.bind(this);
     this.state = {
       emailUnderlineColor: 'green',
       inputEmail: '',
       inputPassword: '',
-      inputsValidation: false,
     };
   }
 
-  _onChangeEmailInput(email){
-    if(emailRegex.test(email)) {
+  onChangeEmailInput(email) {
+    if (emailRegex.test(email)) {
       this.setState({
         emailUnderlineColor: 'green',
         inputEmail: email,
-        inputsValidation: true,
-      })
-    }
-    else {
+      });
+    } else {
       this.setState({
-        emailUnderlineColor: 'red'
-      })
+        emailUnderlineColor: 'red',
+      });
     }
   }
 
-  _onChangePasswordInput(password){
+  onChangePasswordInput(password) {
     this.setState({
       inputPassword: password,
-      inputsValidation: true
-    })
+    });
   }
-  _onSignUpButton(){
+  onSignUpButton() {
     this.props.newUserMutation({
-      variables: { email: this.state.inputEmail, password: this.state.inputPassword }
+      variables: { email: this.state.inputEmail, password: this.state.inputPassword },
     })
       .then(({ data }) => {
         console.warn('got data', data);
       }).catch((error) => {
-      console.log('there was an error sending the query', error);
-    });
+        console.log('there was an error sending the query', error);
+      });
   }
 
 
-  _onLogInButton(){
+  onLogInButton() {
     this.props.checkUserMutation({
-      variables: { email: this.state.inputEmail, password: this.state.inputPassword }
+      variables: { email: this.state.inputEmail, password: this.state.inputPassword },
     })
       .then(({ data }) => {
-      console.warn(data);
-        if(data.checkUser.message === 'Log in success'){
+        console.warn(data);
+        if (data.checkUser.message === 'Log in success') {
           setStorageValue(TOKEN, data.checkUser.token)
-            .then(()=>{
+            .then(() => {
               Actions.app();
             });
         }
       }).catch((error) => {
-    });
+        console.log(error);
+      });
   }
 
-  componentWillMount(){
-
-  }
-
-  render(){
-    return(
+  render() {
+    return (
       <View style={authorizationStyles.root}>
-        <KeyboardAvoidingView behavior={'position'} >
+        <KeyboardAvoidingView behavior="position" >
           <View style={authorizationStyles.logoContainer}>
             <Image
               style={authorizationStyles.logoImage}
-              resizeMode={'contain'}
+              resizeMode="contain"
               source={logo}
             />
           </View>
@@ -100,15 +89,14 @@ class Authorization extends Component{
             <View>
               <TextInput
                 style={authorizationStyles.emailInput}
-                onChangeText={this._onChangeEmailInput}
-                placeholder={'Email'}
+                onChangeText={this.onChangeEmailInput}
+                placeholder="Email"
                 underlineColorAndroid={this.state.emailUnderlineColor}
               />
               <TextInput
                 style={authorizationStyles.passwordInput}
-                secureTextEntry={true}
-                onChangeText={this._onChangePasswordInput}
-                placeholder={'Password'}
+                onChangeText={this.onChangePasswordInput}
+                placeholder="Password"
               />
             </View>
             <View style={authorizationStyles.buttonGroup}>
@@ -116,23 +104,31 @@ class Authorization extends Component{
                 style={authorizationStyles.logInButton}
                 title="Log In"
                 color={mainColor}
-                onPress={this._onLogInButton}
+                onPress={this.onLogInButton}
               />
               <View>
-                <View style={{alignSelf:'center',position:'absolute',borderBottomColor:'gray',borderBottomWidth:1,height:'50%',width:'100%'}}/>
-                <Text style={{alignSelf:'center',padding:10, backgroundColor:'white'}}>OR</Text>
+                <View style={{
+                  alignSelf: 'center',
+                  position: 'absolute',
+                  borderBottomColor: 'gray',
+                  borderBottomWidth: 1,
+                  height: '50%',
+                  width: '100%',
+                }}
+                />
+                <Text style={{ alignSelf: 'center', padding: 10, backgroundColor: 'white' }}>OR</Text>
               </View>
               <Button
                 style={authorizationStyles.signUpButton}
                 title="Create new BookIt account"
                 color={mainColor}
-                onPress={this._onSignUpButton}
+                onPress={this.onSignUpButton}
               />
             </View>
           </View>
         </KeyboardAvoidingView>
       </View>
-    )
+    );
   }
 }
 
@@ -155,9 +151,9 @@ const addUserMutation = gql`
 `;
 
 const AuthorizationWithMutations = compose(
-  graphql(addUserMutation, {name: 'newUserMutation'}),
-  graphql(checkUserMutation, {name: 'checkUserMutation'})
+  graphql(addUserMutation, { name: 'newUserMutation' }),
+  graphql(checkUserMutation, { name: 'checkUserMutation' }),
 )(Authorization);
 
 
-export default connect(({routes}) => ({routes}))(AuthorizationWithMutations)
+export default connect(({ routes }) => ({ routes }))(AuthorizationWithMutations);
