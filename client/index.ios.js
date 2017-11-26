@@ -1,9 +1,9 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
-import App from './app/components/App/App';
-
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
+
+import { App } from './app/features';
 
 const Client = () => {
   const networkInterface = createNetworkInterface({

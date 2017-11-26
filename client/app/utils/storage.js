@@ -1,17 +1,21 @@
 import { AsyncStorage } from 'react-native';
 
 export async function getStorageValue(token) {
+  let item;
   try {
-    return await AsyncStorage.getItem(token);
+    item = await AsyncStorage.getItem(token);
   } catch (error) {
     console.warn(error);
   }
+  return item;
 }
 
 export async function setStorageValue(key, value) {
+  let item;
   try {
-    return await AsyncStorage.setItem(key, value);
+    item = await AsyncStorage.setItem(key, value);
   } catch (error) {
     console.warn(error);
   }
+  return item;
 }

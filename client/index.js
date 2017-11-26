@@ -1,16 +1,14 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache } from 'apollo-cache-inmemory/lib';
 import { Router, Scene } from 'react-native-router-flux';
 import { connect, Provider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-client';
 
-import configureStore from './app/store/configureStore';
-import App from './app/components/App/App';
-import Authorization from './app/components/Authorization/Authorization';
-import Main from './app/components/Main/Main';
+import { configureStore } from './app/store';
+import { App, Authorization, Main } from './app/features';
 
 const store = configureStore();
 const RouterWithRedux = connect()(Router);
@@ -30,6 +28,8 @@ const Client = () => {
             <Scene key="main" hideNavBar component={Main} title="Main" />
             <Scene key="app" hideNavBar component={App} title="App" initial />
             <Scene key="authorization" hideNavBar component={Authorization} />
+            <Scene key="registration" hideNavBar component={Authorization} />
+            <Scene key="basket" hideNavBar component={Authorization} />
           </Scene>
         </RouterWithRedux>
       </Provider>

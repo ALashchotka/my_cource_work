@@ -5,11 +5,11 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 
-import logo from '../../assets/images/bi_logo.png';
-import { mainColor } from '../../constants/colors';
+import { images } from '../../images';
+import { mainColor } from '../../styles/colors';
 import { styles } from './styles';
-import { TOKEN } from '../../constants/session';
-import { setStorageValue } from '../../utils/storage';
+import { TOKEN } from '../constants';
+import { setStorageValue } from '../../utils';
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -82,7 +82,7 @@ class Authorization extends Component {
             <Image
               style={styles.logoImage}
               resizeMode="contain"
-              source={logo}
+              source={images.logo}
             />
           </View>
           <View style={styles.formContainer}>

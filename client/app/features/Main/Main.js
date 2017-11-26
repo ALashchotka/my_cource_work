@@ -6,8 +6,8 @@ import logoIcon from 'material-design-icons/image/drawable-xxxhdpi/ic_camera_whi
 import exitIcon from 'material-design-icons/navigation/drawable-xxxhdpi/ic_cancel_white_24dp.png';
 
 import { styles } from './styles';
-import { setStorageValue } from '../../utils/storage';
-import { TOKEN } from '../../constants/session';
+import { setStorageValue } from '../../utils';
+import { TOKEN } from '../constants';
 
 class Main extends Component {
   onLogOut() {
