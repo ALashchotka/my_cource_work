@@ -10,7 +10,6 @@ import ApolloClient from 'apollo-client';
 import configureStore from './app/store/configureStore';
 import App from './app/components/App/App';
 import Authorization from './app/components/Authorization/Authorization';
-import Toolbar from './app/components/Toolbar/Toolbar';
 import Main from './app/components/Main/Main';
 
 const store = configureStore();

@@ -12,7 +12,7 @@ export default class Toolbar extends Component {
         <ToolbarAndroid
           style={styles.toolbar}
           logo={logoIcon}
-          title="My WebShop"
+          title="Bolid"
           actions={[{ title: 'Settings', icon: settingsIcon, show: 'always' }]}
         />
       </View>

@@ -1,6 +1,6 @@
 # Course work for Network Application Programming
 
-Application name: My WebShop
+Application name: Bolid
 
 Platforms: Android
 
@@ -14,9 +14,3 @@ Technologies:
 ## Description
 
 Application allow to book events or entertainment stuff. 
-
-
-
-
-
-
