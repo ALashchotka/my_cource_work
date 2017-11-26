@@ -1,6 +1,6 @@
 # Course work for Network Application Programming
 
-Application name: BookIt
+Application name: My WebShop
 
 Platforms: Android
 

@@ -10,6 +10,9 @@ import authorizationStyles from './authorizationStyles'
 
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import { TOKEN } from "../../constants/session";
+
+import { setStorageValue } from "../../utils/storage";
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -61,13 +64,6 @@ class Authorization extends Component{
     });
   }
 
-  async _setStorageValue(token){
-    try {
-      return await AsyncStorage.setItem('token', token);
-    } catch (error) {
-      console.warn(error);
-    }
-  }
 
   _onLogInButton(){
     this.props.checkUserMutation({
@@ -76,7 +72,7 @@ class Authorization extends Component{
       .then(({ data }) => {
       console.warn(data);
         if(data.checkUser.message === 'Log in success'){
-          this._setStorageValue(data.checkUser.token)
+          setStorageValue(TOKEN, data.checkUser.token)
             .then(()=>{
               Actions.app();
             });

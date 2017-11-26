@@ -12,9 +12,6 @@ import mainStyles from "./mainStyles";
 import { setStorageValue } from "../../utils/storage";
 import { TOKEN } from "../../constants/session";
 
-
-
-
 class Main extends Component{
   constructor(props){
     super(props);
@@ -25,6 +22,7 @@ class Main extends Component{
     setStorageValue(TOKEN, '')
       .then(() => {
         Actions.authorization();
+        this.props.client.resetStore()
       })
   }
 
@@ -43,4 +41,4 @@ class Main extends Component{
   }
 }
 
-export default connect(({routes}) => ({routes}))(Main)
+export default connect(({routes}) => ({routes}))(Main);

@@ -1,4 +1,3 @@
-
 const typeDefinitions = `
 type User {
   email: String

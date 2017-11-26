@@ -1,7 +1,7 @@
 const Mongoose = require('mongoose');
 const UserModel = require('../../model');
 
-module.exports.createNote = function createNote(data){
+module.exports.createNote = function createNote(data) {
   const user = new UserModel({
     email: data.email,
     password: data.password,
@@ -9,6 +9,6 @@ module.exports.createNote = function createNote(data){
 
   return user.save((err, item) => {
     console.log('saved:', item);
-    return item
+    return item;
   });
 };

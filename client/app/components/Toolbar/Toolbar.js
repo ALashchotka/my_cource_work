@@ -16,7 +16,7 @@ export default class Toolbar extends Component{
         <ToolbarAndroid
           style={toolbarStyles.toolbar}
           logo={logoIcon}
-          title="BookIt"
+          title="My WebShop"
           actions={[{title: 'Settings', icon: settingsIcon, show: 'always'}]}
         />
       </View>

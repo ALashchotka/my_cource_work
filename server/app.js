@@ -5,7 +5,7 @@ const Mongoose = require('mongoose');
 const PORT = 3000;
 const app = express();
 const { apolloExpress, graphiqlExpress } = require('apollo-server');
-const { graphqlExpress } =  require('apollo-server-express');
+const { graphqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
 Mongoose.Promise = global.Promise;
@@ -15,7 +15,6 @@ Mongoose.connect('mongodb://localhost:27017/users', (err) => {
   }
   return true;
 });
-
 
 const Schema = require('./schema');
 const Resolvers = require('./resolvers');
