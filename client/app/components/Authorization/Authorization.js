@@ -7,7 +7,7 @@ import { Actions } from 'react-native-router-flux';
 
 import logo from '../../assets/images/bi_logo.png';
 import { mainColor } from '../../constants/colors';
-import authorizationStyles from './authorizationStyles';
+import { styles } from './styles';
 import { TOKEN } from '../../constants/session';
 import { setStorageValue } from '../../utils/storage';
 
@@ -76,32 +76,32 @@ class Authorization extends Component {
 
   render() {
     return (
-      <View style={authorizationStyles.root}>
+      <View style={styles.root}>
         <KeyboardAvoidingView behavior="position" >
-          <View style={authorizationStyles.logoContainer}>
+          <View style={styles.logoContainer}>
             <Image
-              style={authorizationStyles.logoImage}
+              style={styles.logoImage}
               resizeMode="contain"
               source={logo}
             />
           </View>
-          <View style={authorizationStyles.formContainer}>
+          <View style={styles.formContainer}>
             <View>
               <TextInput
-                style={authorizationStyles.emailInput}
+                style={styles.emailInput}
                 onChangeText={this.onChangeEmailInput}
                 placeholder="Email"
                 underlineColorAndroid={this.state.emailUnderlineColor}
               />
               <TextInput
-                style={authorizationStyles.passwordInput}
+                style={styles.passwordInput}
                 onChangeText={this.onChangePasswordInput}
                 placeholder="Password"
               />
             </View>
-            <View style={authorizationStyles.buttonGroup}>
+            <View style={styles.buttonGroup}>
               <Button
-                style={authorizationStyles.logInButton}
+                style={styles.logInButton}
                 title="Log In"
                 color={mainColor}
                 onPress={this.onLogInButton}
@@ -119,7 +119,7 @@ class Authorization extends Component {
                 <Text style={{ alignSelf: 'center', padding: 10, backgroundColor: 'white' }}>OR</Text>
               </View>
               <Button
-                style={authorizationStyles.signUpButton}
+                style={styles.signUpButton}
                 title="Create new BookIt account"
                 color={mainColor}
                 onPress={this.onSignUpButton}
