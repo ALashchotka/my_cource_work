@@ -13,7 +13,7 @@ export default class Toolbar extends Component {
           style={styles.toolbar}
           logo={logoIcon}
           title="My WebShop"
-          actions={[{title: 'Settings', icon: settingsIcon, show: 'always'}]}
+          actions={[{ title: 'Settings', icon: settingsIcon, show: 'always' }]}
         />
       </View>
     );

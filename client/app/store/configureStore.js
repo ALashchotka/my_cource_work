@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
-import reducers from '../reducers/index';
+import reducers, { nextRootReducer } from '../reducers/index';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
@@ -13,8 +13,7 @@ export default function configureStore() {
   );
   if (module.hot) {
     module.hot.accept(() => {
-      const nextRootReducer = require('../reducers/index').default;
-      store.replaceReducer(nextRootReducer);
+      store.replaceReducer(nextRootReducer.default);
     });
   }
   return store;
