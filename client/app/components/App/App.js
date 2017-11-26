@@ -4,17 +4,11 @@ import Toolbar from '../Toolbar/Toolbar';
 import appStyles from './appStyles'
 import settingsIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_settings_white_24dp.png';
 import logoIcon from 'material-design-icons/image/drawable-xxxhdpi/ic_camera_white_24dp.png';
-
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-
 import { TOKEN } from '../../constants/session'
-
-
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-
-
 
 class App extends Component {
   constructor() {
