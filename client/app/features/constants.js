@@ -1,1 +1,2 @@
-export const TOKEN = 'token';
+export const SET_TOKEN = 'SET_TOKEN';
+export const TOKEN = 'TOKEN';

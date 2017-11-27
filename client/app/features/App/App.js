@@ -1,31 +1,24 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, AsyncStorage, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { bindActionCreators } from 'redux';
 
 import { TOKEN } from '../constants';
+import { getStorageValue } from '../../utils';
+import { setTokenDispatcher } from '../actions';
 
 class App extends Component {
   componentDidMount() {
-    this.getStorageValue(TOKEN)
+    getStorageValue(TOKEN)
       .then((token) => {
         if (token) {
-          console.warn(token);
+          setTokenDispatcher(token);
           Actions.main();
         } else {
           Actions.authorization();
         }
       });
-  }
-
-  async getStorageValue(value) {
-    let item;
-    try {
-      item = await AsyncStorage.getItem(value);
-    } catch (error) {
-      console.log(error);
-    }
-    return item;
   }
 
   render() {
@@ -37,4 +30,12 @@ class App extends Component {
   }
 }
 
-export default connect(({ routes }) => ({ routes }))(App);
+const mapStateToProps = state => ({
+  routes: state.routes.routes,
+  token: state.token.token,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ setTokenDispatcher }, dispatch);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

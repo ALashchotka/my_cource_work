@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import routes from './routes';
-// ... other reducers
+import token from './token';
 
 export default combineReducers({
   routes,
-  // ... other reducers
+  token,
 });
