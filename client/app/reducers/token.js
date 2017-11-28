@@ -1,4 +1,4 @@
-import { SET_TOKEN } from '../features/actions';
+import { SET_TOKEN } from '../features/constants';
 
 const initialState = {
   token: '',

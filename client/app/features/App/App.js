@@ -13,7 +13,7 @@ class App extends Component {
     getStorageValue(TOKEN)
       .then((token) => {
         if (token) {
-          setTokenDispatcher(token);
+          this.props.setTokenDispatcher(token);
           Actions.main();
         } else {
           Actions.authorization();
