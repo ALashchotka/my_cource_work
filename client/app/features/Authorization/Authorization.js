@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Button, Image, View, Text, TextInput } from 'react-native';
+import { KeyboardAvoidingView, Button, View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
-import { images } from '../../images';
 import { styles } from './styles';
 import { TOKEN } from '../../constants';
 import { setStorageValue } from '../../utils';
+import { TabNavigator } from '../../features';
 
 class Authorization extends Component {
   constructor(props) {
@@ -68,13 +68,6 @@ class Authorization extends Component {
     return (
       <View style={styles.conatiner}>
         <KeyboardAvoidingView behavior="position" >
-          <View style={styles.logoContainer}>
-            <Image
-              style={styles.logoImage}
-              resizeMode="contain"
-              source={images.logo}
-            />
-          </View>
           <View style={styles.formContainer}>
             <View>
               <TextInput
@@ -90,32 +83,33 @@ class Authorization extends Component {
             </View>
             <View style={styles.buttonGroup}>
               <Button
-                style={styles.logInButton}
-                title="Log In"
+                style={styles.button}
                 color="grey"
+                title="Log In"
                 onPress={this.onLogInButton}
               />
               <View>
                 <View style={{
-                  alignSelf: 'center',
-                  position: 'absolute',
-                  borderBottomColor: 'gray',
-                  borderBottomWidth: 1,
-                  height: '50%',
-                  width: '100%'
-                }}
+                    alignSelf: 'center',
+                    position: 'absolute',
+                    borderBottomColor: 'gray',
+                    borderBottomWidth: 1,
+                    height: '50%',
+                    width: '100%'
+                  }}
                 />
                 <Text style={{ alignSelf: 'center', padding: 10, backgroundColor: 'white' }}>OR</Text>
               </View>
               <Button
-                style={styles.signUpButton}
-                title="Create new BookIt account"
+                style={styles.button}
                 color="grey"
+                title="Sign Up"
                 onPress={this.onSignUpButton}
               />
             </View>
           </View>
         </KeyboardAvoidingView>
+        <TabNavigator styles={styles.tabNavigator} />
       </View>
     );
   }

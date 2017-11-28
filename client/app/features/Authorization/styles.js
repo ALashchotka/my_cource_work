@@ -2,12 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   conatiner: {
-    height: '100%',
+    flex: 1,
     backgroundColor: 'white'
-  },
-  logoContainer: {
-    padding: 50,
-    alignItems: 'center'
   },
   formContainer: {
     marginHorizontal: 50,
@@ -30,10 +26,8 @@ export const styles = StyleSheet.create({
   passwordInput: {
     marginTop: 10
   },
-  logInButton: {
-    marginTop: 10
-  },
-  signUpButton: {
+  button: {
+    backgroundColor: 'grey',
     paddingTop: 10
   }
 });
