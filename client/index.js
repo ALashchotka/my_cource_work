@@ -35,7 +35,7 @@ const Client = () => {
             <Scene key="registration" hideNavBar component={Main} />
             <Scene key="basket" hideNavBar component={Main} />
             <Scene key="directory" hideNavBar component={Main} />
-            <Scene key="profile" hideNavBar component={Main} />
+            <Scene key="profile" hideNavBar component={Authorization} />
             <Scene key="favourite" hideNavBar component={Main} />
           </Scene>
         </RouterWithRedux>
