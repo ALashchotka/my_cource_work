@@ -1,13 +1,12 @@
-import { SET_PAGE } from '../constants';
+import { setPage } from '../actions';
 
 const initialState = {
   page: 'main'
 };
 
 export default function reducer(state = initialState, action = {}) {
-  console.log(action);
   switch (action.type) {
-    case SET_PAGE:
+    case setPage:
       return {
         ...state,
         page: action.page

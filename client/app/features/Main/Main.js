@@ -9,7 +9,7 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TabNavigator page="main" />
+        <TabNavigator />
       </View>
     );
   }

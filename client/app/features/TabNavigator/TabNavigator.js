@@ -8,33 +8,25 @@ import { Actions } from 'react-native-router-flux';
 import { invoke } from 'lodash';
 
 import { styles } from './styles';
-import { setCurrentPage } from '../../actions';
+import { setCurrentPageAction } from '../../actions';
 
 class TabNavigator extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: props.page
-    };
     this.onSelectTab = this.onSelectTab.bind(this);
-    this.MoveToPage = this.MoveToPage.bind(this);
   }
 
   onSelectTab(tab) {
     const page = tab.props.name;
-    this.setState({ page: tab.props.name });
-    this.MoveToPage(page);
-  }
-
-  MoveToPage(page) {
-    this.props.setCurrentPage(page);
+    this.props.setCurrentPageAction(page);
     invoke(Actions, page);
   }
 
   render() {
+    const currentPage = this.props.tabNavigator;
     return (
       <Tabs
-        selected={this.state.page}
+        selected={currentPage}
         style={styles.tab}
         selectedStyle={styles.selectedStyle}
         onSelect={this.onSelectTab}
@@ -49,14 +41,14 @@ class TabNavigator extends Component {
 }
 
 TabNavigator.propTypes = {
-  page: PropTypes.string.isRequired,
-  setCurrentPage: PropTypes.func.isRequired
+  setCurrentPageAction: PropTypes.func.isRequired,
+  tabNavigator: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
-  routes: state.routes.routes
+  tabNavigator: state.tabNavigator.page
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setCurrentPage }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setCurrentPageAction }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabNavigator);

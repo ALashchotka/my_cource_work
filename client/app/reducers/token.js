@@ -1,14 +1,12 @@
-import { SET_TOKEN } from '../constants';
+import { setUserToken } from '../actions';
 
 const initialState = {
-  token: '',
+  token: ''
 };
 
 export default function reducer(state = initialState, action = {}) {
-  console.log(action);
   switch (action.type) {
-    case SET_TOKEN:
-      console.log(action);
+    case setUserToken:
       return {
         ...state,
         token: action.token

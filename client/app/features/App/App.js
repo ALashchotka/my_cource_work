@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 
-import { getStorageValue } from '../../utils';
-import { setTokenDispatcher } from '../../actions';
+import { setTokenAction } from '../../actions';
 
 class App extends Component {
   componentDidMount() {
@@ -22,11 +21,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  routes: state.routes.routes,
+  tabNavigator: state.tabNavigator.tabNavigator,
   token: state.token.token
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setTokenDispatcher }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setTokenAction }, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

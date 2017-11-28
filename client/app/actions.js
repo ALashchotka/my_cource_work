@@ -1,15 +1,16 @@
-import { SET_TOKEN, SET_PAGE } from './constants';
+export const setUserToken = 'user/setUserToken';
+export const setPage = 'tabNavigator/setPage';
 
-export const setTokenDispatcher = token => (dispatch) => {
+export const setTokenAction = token => (dispatch) => {
   dispatch({
-    type: SET_TOKEN,
+    type: setUserToken,
     token
   });
 };
 
-export const setCurrentPage = page => (dispatch) => {
+export const setCurrentPageAction = page => (dispatch) => {
   dispatch({
-    type: SET_PAGE,
+    type: setPage,
     page
   });
 };
