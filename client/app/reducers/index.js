@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import tabNavigator from './tabNavigator';
-import token from './token';
+import user from './user';
 
 export default combineReducers({
   tabNavigator,
-  token
+  user
 });

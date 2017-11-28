@@ -15,4 +15,4 @@ class Main extends Component {
   }
 }
 
-export default connect(({ routes }) => ({ routes }))(Main);
+export default connect(({ tabNavigator }) => ({ tabNavigator }))(Main);

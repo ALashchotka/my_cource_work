@@ -150,4 +150,4 @@ const AuthorizationWithMutations = compose(
 )(Authorization);
 
 
-export default connect(({ routes }) => ({ routes }))(AuthorizationWithMutations);
+export default connect(({ tabNavigator }) => ({ tabNavigator }))(AuthorizationWithMutations);

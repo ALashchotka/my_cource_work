@@ -22,7 +22,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   tabNavigator: state.tabNavigator.tabNavigator,
-  token: state.token.token
+  user: state.user.token
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ setTokenAction }, dispatch);

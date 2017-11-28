@@ -31,11 +31,11 @@ const Client = () => {
           <Scene key="root">
             <Scene key="app" hideNavBar component={App} title="App" initial />
             <Scene key="main" hideNavBar component={Main} title="Main" />
-            <Scene key="authorization" hideNavBar component={Main} />
+            <Scene key="authorization" hideNavBar component={Authorization} />
             <Scene key="registration" hideNavBar component={Main} />
             <Scene key="basket" hideNavBar component={Main} />
             <Scene key="directory" hideNavBar component={Main} />
-            <Scene key="profile" hideNavBar component={Authorization} />
+            <Scene key="profile" hideNavBar component={Profile} title="Profile" />
             <Scene key="favourite" hideNavBar component={Main} />
           </Scene>
         </RouterWithRedux>
