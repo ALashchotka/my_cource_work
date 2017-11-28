@@ -5,5 +5,5 @@ import { Main } from './Main';
 export {
   App,
   Authorization,
-  Main,
+  Main
 };

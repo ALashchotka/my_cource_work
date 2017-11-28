@@ -14,48 +14,49 @@ class TabNavigator extends Component {
     super(props);
     this.state = {
       page: props.page
-    }
+    };
     this.onSelectTab = this.onSelectTab.bind(this);
     this.MoveToPage = this.MoveToPage.bind(this);
   }
-  
+
   onSelectTab(tab) {
     const page = tab.props.name;
-    this.setState({page: tab.props.name});
+    this.setState({ page: tab.props.name });
     this.MoveToPage(page);
   }
 
-  MoveToPage = (page) => {
+  MoveToPage(page) {
     const Pages = {
-      'profile': Actions.authorization,
-      'main': Actions.main,
-      'search': Actions.search,
-      'shop': Actions.shop,
-    }
+      profile: Actions.authorization,
+      main: Actions.main,
+      search: Actions.search,
+      shop: Actions.shop
+    };
     this.props.setCurrentPage(page);
     Pages[page]();
   }
 
   render() {
     return (
-      <Tabs 
+      <Tabs
         selected={this.state.page}
         style={styles.tab}
-        selectedStyle={styles.selectedStyle} 
+        selectedStyle={styles.selectedStyle}
         onSelect={this.onSelectTab}
       >
         <Text name="main">Main</Text>
         <Text name="shop">Shop</Text>
         <Text name="search">Search</Text>
         <Text name="profile">Profile</Text>
-    </Tabs>
+      </Tabs>
     );
   }
 }
 
 TabNavigator.propTypes = {
-  page: PropTypes.string.isRequired
-}
+  page: PropTypes.string.isRequired,
+  setCurrentPage: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   routes: state.routes.routes

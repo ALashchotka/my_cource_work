@@ -7,7 +7,6 @@ import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
 import { images } from '../../images';
-import { mainColor } from '../../styles/colors';
 import { styles } from './styles';
 import { TOKEN } from '../../constants';
 import { setStorageValue } from '../../utils';
@@ -21,24 +20,24 @@ class Authorization extends Component {
     this.onLogInButton = this.onLogInButton.bind(this);
     this.state = {
       inputEmail: '',
-      inputPassword: '',
+      inputPassword: ''
     };
   }
 
   onChangeEmailInput(email) {
-      this.setState({
-        inputEmail: email,
-      });
+    this.setState({
+      inputEmail: email
+    });
   }
 
   onChangePasswordInput(password) {
     this.setState({
-      inputPassword: password,
+      inputPassword: password
     });
   }
   onSignUpButton() {
     this.props.newUserMutation({
-      variables: { email: this.state.inputEmail, password: this.state.inputPassword },
+      variables: { email: this.state.inputEmail, password: this.state.inputPassword }
     })
       .then(({ data }) => {
         console.warn('got data', data);
@@ -50,7 +49,7 @@ class Authorization extends Component {
 
   onLogInButton() {
     this.props.checkUserMutation({
-      variables: { email: this.state.inputEmail, password: this.state.inputPassword },
+      variables: { email: this.state.inputEmail, password: this.state.inputPassword }
     })
       .then(({ data }) => {
         console.warn(data);
@@ -93,7 +92,7 @@ class Authorization extends Component {
               <Button
                 style={styles.logInButton}
                 title="Log In"
-                color={mainColor}
+                color="grey"
                 onPress={this.onLogInButton}
               />
               <View>
@@ -103,7 +102,7 @@ class Authorization extends Component {
                   borderBottomColor: 'gray',
                   borderBottomWidth: 1,
                   height: '50%',
-                  width: '100%',
+                  width: '100%'
                 }}
                 />
                 <Text style={{ alignSelf: 'center', padding: 10, backgroundColor: 'white' }}>OR</Text>
@@ -111,7 +110,7 @@ class Authorization extends Component {
               <Button
                 style={styles.signUpButton}
                 title="Create new BookIt account"
-                color={mainColor}
+                color="grey"
                 onPress={this.onSignUpButton}
               />
             </View>
@@ -124,7 +123,7 @@ class Authorization extends Component {
 
 Authorization.propTypes = {
   checkUserMutation: PropTypes.func.isRequired,
-  newUserMutation: PropTypes.func.isRequired,
+  newUserMutation: PropTypes.func.isRequired
 };
 
 const checkUserMutation = gql`

@@ -3,5 +3,5 @@ import { styles } from './styles';
 
 export {
   Authorization,
-  styles,
+  styles
 };

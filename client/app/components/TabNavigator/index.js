@@ -1,3 +1,3 @@
-import TabNavigator from './TabNavigator';
+import { TabNavigator } from './TabNavigator';
 
 export default TabNavigator;

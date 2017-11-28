@@ -11,7 +11,7 @@ export default function reducer(state = initialState, action = {}) {
       console.log(action);
       return {
         ...state,
-        token: action.token,
+        token: action.token
       };
     default:
       return state;

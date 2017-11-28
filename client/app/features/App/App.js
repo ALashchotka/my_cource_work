@@ -9,7 +9,7 @@ import { setTokenDispatcher } from '../../actions';
 
 class App extends Component {
   componentDidMount() {
-      Actions.main(); 
+    Actions.main();
   }
 
   render() {
@@ -23,7 +23,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   routes: state.routes.routes,
-  token: state.token.token,
+  token: state.token.token
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ setTokenDispatcher }, dispatch);

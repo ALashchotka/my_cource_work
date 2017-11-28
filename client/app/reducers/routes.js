@@ -1,7 +1,7 @@
 import { SET_PAGE } from '../constants';
 
 const initialState = {
-  page: 'main',
+  page: 'main'
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -10,7 +10,7 @@ export default function reducer(state = initialState, action = {}) {
     case SET_PAGE:
       return {
         ...state,
-        page: action.page,
+        page: action.page
       };
     default:
       return state;
