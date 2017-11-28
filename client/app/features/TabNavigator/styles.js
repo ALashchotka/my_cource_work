@@ -10,9 +10,9 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   tab: {
-    backgroundColor: toRGBA('black', 0.8),
+    backgroundColor: toRGBA('white', 0.8),
     borderTopWidth: 1,
-    borderTopColor: toRGBA('black', 0.5)
+    borderTopColor: toRGBA('black', 0.2)
   },
   selectedStyle: {
     color: toRGBA('black')

@@ -8,7 +8,9 @@ import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-client';
 
 import configureStore from './app/store';
-import { App, Authorization, Main } from './app/features';
+import {
+  App, Authorization, Basket, Directory, Main, Profile, Registration
+} from './app/features';
 
 console.disableYellowBox = true;
 
@@ -19,7 +21,7 @@ const Client = () => {
   const httpLink = new HttpLink({ uri: 'http://10.0.3.2:3000/graphql' });
   const client = new ApolloClient({
     link: httpLink,
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache()
   });
 
   return (
@@ -27,12 +29,14 @@ const Client = () => {
       <Provider store={store}>
         <RouterWithRedux>
           <Scene key="root">
-            <Scene key="main" hideNavBar component={Main} title="Main" />
             <Scene key="app" hideNavBar component={App} title="App" initial />
-            <Scene key="authorization" hideNavBar component={Authorization} />
-            <Scene key="registration" hideNavBar component={Authorization} />
-            <Scene key="basket" hideNavBar component={Authorization} />
-            <Scene key="shop" hideNavBar component={Authorization} />
+            <Scene key="main" hideNavBar component={Main} title="Main" />
+            <Scene key="authorization" hideNavBar component={Main} />
+            <Scene key="registration" hideNavBar component={Main} />
+            <Scene key="basket" hideNavBar component={Main} />
+            <Scene key="directory" hideNavBar component={Main} />
+            <Scene key="profile" hideNavBar component={Main} />
+            <Scene key="favourite" hideNavBar component={Main} />
           </Scene>
         </RouterWithRedux>
       </Provider>

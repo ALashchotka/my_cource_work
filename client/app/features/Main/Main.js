@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { styles } from './styles';
-import { TabNavigator } from '../../components';
+import { TabNavigator } from '../../features';
 
 class Main extends Component {
   render() {

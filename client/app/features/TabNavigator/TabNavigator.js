@@ -5,6 +5,7 @@ import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
+import { invoke } from 'lodash';
 
 import { styles } from './styles';
 import { setCurrentPage } from '../../actions';
@@ -26,14 +27,8 @@ class TabNavigator extends Component {
   }
 
   MoveToPage(page) {
-    const Pages = {
-      profile: Actions.authorization,
-      main: Actions.main,
-      search: Actions.search,
-      shop: Actions.shop
-    };
     this.props.setCurrentPage(page);
-    Pages[page]();
+    invoke(Actions, page);
   }
 
   render() {
@@ -45,8 +40,8 @@ class TabNavigator extends Component {
         onSelect={this.onSelectTab}
       >
         <Text name="main">Main</Text>
-        <Text name="shop">Shop</Text>
-        <Text name="search">Search</Text>
+        <Text name="directory">Directory</Text>
+        <Text name="favourite">Favourite</Text>
         <Text name="profile">Profile</Text>
       </Tabs>
     );
