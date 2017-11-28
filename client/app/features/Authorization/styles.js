@@ -1,9 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-const MARGIN_HORIZONTAL_VALUE = 50;
-
 export const styles = StyleSheet.create({
-  root: {
+  conatiner: {
     height: '100%',
     backgroundColor: 'white',
   },
@@ -12,8 +10,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   formContainer: {
-    marginLeft: MARGIN_HORIZONTAL_VALUE,
-    marginRight: MARGIN_HORIZONTAL_VALUE,
+    marginHorizontal: 50,
     paddingBottom: 100,
   },
   textCenter: {

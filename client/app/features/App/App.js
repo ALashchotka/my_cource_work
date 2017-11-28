@@ -4,21 +4,12 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 
-import { TOKEN } from '../constants';
 import { getStorageValue } from '../../utils';
-import { setTokenDispatcher } from '../actions';
+import { setTokenDispatcher } from '../../actions';
 
 class App extends Component {
   componentDidMount() {
-    getStorageValue(TOKEN)
-      .then((token) => {
-        if (token) {
-          this.props.setTokenDispatcher(token);
-          Actions.main();
-        } else {
-          Actions.authorization();
-        }
-      });
+      Actions.main(); 
   }
 
   render() {

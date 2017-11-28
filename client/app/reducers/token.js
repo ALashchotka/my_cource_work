@@ -1,4 +1,4 @@
-import { SET_TOKEN } from '../features/constants';
+import { SET_TOKEN } from '../constants';
 
 const initialState = {
   token: '',

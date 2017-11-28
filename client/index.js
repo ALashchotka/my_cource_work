@@ -10,6 +10,8 @@ import ApolloClient from 'apollo-client';
 import configureStore from './app/store';
 import { App, Authorization, Main } from './app/features';
 
+console.disableYellowBox = true;
+
 const store = configureStore();
 const RouterWithRedux = connect()(Router);
 
@@ -30,6 +32,7 @@ const Client = () => {
             <Scene key="authorization" hideNavBar component={Authorization} />
             <Scene key="registration" hideNavBar component={Authorization} />
             <Scene key="basket" hideNavBar component={Authorization} />
+            <Scene key="shop" hideNavBar component={Authorization} />
           </Scene>
         </RouterWithRedux>
       </Provider>

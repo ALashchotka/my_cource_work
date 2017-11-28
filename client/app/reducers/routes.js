@@ -1,16 +1,16 @@
-import { ActionConst } from 'react-native-router-flux';
+import { SET_PAGE } from '../constants';
 
 const initialState = {
-  scene: {},
+  page: 'main',
 };
 
 export default function reducer(state = initialState, action = {}) {
+  console.log(action);
   switch (action.type) {
-    case ActionConst.FOCUS:
-      console.log(action);
+    case SET_PAGE:
       return {
         ...state,
-        scene: action.scene,
+        page: action.page,
       };
     default:
       return state;

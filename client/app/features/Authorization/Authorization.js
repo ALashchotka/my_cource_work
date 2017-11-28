@@ -9,10 +9,8 @@ import PropTypes from 'prop-types';
 import { images } from '../../images';
 import { mainColor } from '../../styles/colors';
 import { styles } from './styles';
-import { TOKEN } from '../constants';
+import { TOKEN } from '../../constants';
 import { setStorageValue } from '../../utils';
-
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 class Authorization extends Component {
   constructor(props) {
@@ -22,23 +20,15 @@ class Authorization extends Component {
     this.onSignUpButton = this.onSignUpButton.bind(this);
     this.onLogInButton = this.onLogInButton.bind(this);
     this.state = {
-      emailUnderlineColor: 'green',
       inputEmail: '',
       inputPassword: '',
     };
   }
 
   onChangeEmailInput(email) {
-    if (emailRegex.test(email)) {
       this.setState({
-        emailUnderlineColor: 'green',
         inputEmail: email,
       });
-    } else {
-      this.setState({
-        emailUnderlineColor: 'red',
-      });
-    }
   }
 
   onChangePasswordInput(password) {
@@ -77,7 +67,7 @@ class Authorization extends Component {
 
   render() {
     return (
-      <View style={styles.root}>
+      <View style={styles.conatiner}>
         <KeyboardAvoidingView behavior="position" >
           <View style={styles.logoContainer}>
             <Image
@@ -92,7 +82,6 @@ class Authorization extends Component {
                 style={styles.emailInput}
                 onChangeText={this.onChangeEmailInput}
                 placeholder="Email"
-                underlineColorAndroid={this.state.emailUnderlineColor}
               />
               <TextInput
                 style={styles.passwordInput}
