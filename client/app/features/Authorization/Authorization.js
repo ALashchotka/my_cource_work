@@ -5,14 +5,14 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
-import Modal from 'react-native-modal';
 import { bindActionCreators } from 'redux';
 
 import { styles } from './styles';
-import { TOKEN } from '../../constants';
+import { TOKEN, SERVER_ERROR, LOGIN_ERROR } from '../../constants';
 import { setStorageValue } from '../../utils';
 import { TabNavigator } from '../../features';
 import { setTokenAction } from '../../actions';
+import { ModalView } from '../../components';
 
 class Authorization extends Component {
   constructor(props) {
@@ -23,21 +23,22 @@ class Authorization extends Component {
     this.onLogInButton = this.onLogInButton.bind(this);
     this.showModal = this.showModal.bind(this);
     this.state = {
-      inputEmail: '',
-      inputPassword: '',
-      isModalVisible: false
+      email: '',
+      password: '',
+      isModalVisible: false,
+      modalText: ''
     };
   }
 
   onChangeEmailInput(email) {
     this.setState({
-      inputEmail: email
+      email
     });
   }
 
   onChangePasswordInput(password) {
     this.setState({
-      inputPassword: password
+      password
     });
   }
   onSignUpButton() {
@@ -46,7 +47,7 @@ class Authorization extends Component {
 
   onLogInButton() {
     this.props.checkUserMutation({
-      variables: { email: this.state.inputEmail, password: this.state.inputPassword }
+      variables: { email: this.state.email, password: this.state.password }
     })
       .then(({ data }) => {
         console.warn(data);
@@ -58,19 +59,21 @@ class Authorization extends Component {
               this.props.setTokenAction(token);
             });
         } else {
-          this.showModal();
+          this.showModal(LOGIN_ERROR);
         }
       }).catch((error) => {
+        this.showModal(SERVER_ERROR);
         console.log(error);
       });
   }
 
-  showModal() {
-    this.setState({ isModalVisible: true });
+  showModal(modalText) {
+    this.setState({ isModalVisible: true, modalText });
     setTimeout(() => this.setState({ isModalVisible: false }), 2000);
   }
 
   render() {
+    const { modalText, isModalVisible } = this.state;
     return (
       <View style={styles.conatiner}>
         <KeyboardAvoidingView behavior="position" >
@@ -115,21 +118,10 @@ class Authorization extends Component {
             </View>
           </View>
         </KeyboardAvoidingView>
-        <Modal
-          isVisible={this.state.isModalVisible}
-          style={styles.modal}
-          animationIn="slideInUp"
-          animationOut="slideOutDown"
-          animationInTiming={800}
-          animationOutTiming={800}
-          backdropTransitionInTiming={800}
-          backdropTransitionOutTiming={800}
-          backdropOpacity={0}
-        >
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Invalid e-mail or password</Text>
-          </View>
-        </Modal>
+        <ModalView
+          isModalVisible={isModalVisible}
+          modalText={modalText}
+        />
         <TabNavigator styles={styles.tabNavigator} />
       </View>
     );

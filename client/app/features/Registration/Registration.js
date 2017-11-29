@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Button, View, Text, TextInput } from 'react-native';
+import { KeyboardAvoidingView, Button, View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
-import Modal from 'react-native-modal';
 
 import { styles } from './styles';
 import { TabNavigator } from '../../features';
+import { ModalView } from '../../components';
+import { SERVER_ERROR } from '../../constants';
 
 class Registration extends Component {
   constructor(props) {
@@ -68,7 +69,7 @@ class Registration extends Component {
       }).catch((error) => {
         console.log('there was an error sending the query', error);
         this.setState({
-          modalText: 'Unable connect to server'
+          modalText: SERVER_ERROR
         });
         this.showModal();
       });
@@ -80,7 +81,7 @@ class Registration extends Component {
   }
 
   render() {
-    const { modalText } = this.state;
+    const { modalText, isModalVisible } = this.state;
     return (
       <View style={styles.conatiner}>
         <KeyboardAvoidingView behavior="position" >
@@ -117,21 +118,10 @@ class Registration extends Component {
             </View>
           </View>
         </KeyboardAvoidingView>
-        <Modal
-          isVisible={this.state.isModalVisible}
-          style={styles.modal}
-          animationIn="slideInUp"
-          animationOut="slideOutDown"
-          animationInTiming={800}
-          animationOutTiming={800}
-          backdropTransitionInTiming={800}
-          backdropTransitionOutTiming={800}
-          backdropOpacity={0}
-        >
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>{modalText}</Text>
-          </View>
-        </Modal>
+        <ModalView
+          isModalVisible={isModalVisible}
+          modalText={modalText}
+        />
         <TabNavigator styles={styles.tabNavigator} />
       </View>
     );
