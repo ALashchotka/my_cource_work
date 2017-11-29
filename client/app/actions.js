@@ -1,10 +1,9 @@
-export const setUserToken = 'user/setUserToken';
+export const setUserInfo = 'user/setUserInfo';
 export const setPage = 'tabNavigator/setPage';
 
-export const setTokenAction = user => (dispatch) => {
-  console.log(user);
+export const setUserInfoAction = user => (dispatch) => {
   dispatch({
-    type: setUserToken,
+    type: setUserInfo,
     user
   });
 };

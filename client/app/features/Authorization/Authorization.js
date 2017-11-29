@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 import { styles } from './styles';
-import { TOKEN } from '../../constants';
+import { USERINFO } from '../../constants';
 import { SERVER_ERROR, LOGIN_ERROR, loginValidation } from '../../helpers';
 import { setStorageValue } from '../../utils';
 import { TabNavigator } from '../../features';
-import { setTokenAction } from '../../actions';
+import { setUserInfoAction } from '../../actions';
 import { ModalView } from '../../components';
 
 class Authorization extends Component {
@@ -56,10 +56,10 @@ class Authorization extends Component {
         console.warn(data);
         const { message, token, username } = data.checkUser;
         if (message === 'Log in success') {
-          setStorageValue(TOKEN, token)
+          setStorageValue(USERINFO, JSON.stringify({token, username}))
             .then(() => {
               Actions.profile();
-              this.props.setTokenAction({token, username});
+              this.props.setUserInfoAction({token, username});
             });
         } else {
           this.showModal(LOGIN_ERROR);
@@ -138,7 +138,7 @@ class Authorization extends Component {
 
 Authorization.propTypes = {
   checkUserMutation: PropTypes.func.isRequired,
-  setTokenAction: PropTypes.func.isRequired
+  setUserInfoAction: PropTypes.func.isRequired
 };
 
 const checkUserMutation = gql`
@@ -155,7 +155,7 @@ const mapStateToProps = state => ({
   token: state.user.token
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setTokenAction }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setUserInfoAction }, dispatch);
 
 const AuthorizationWithMutations = compose(graphql(checkUserMutation, { name: 'checkUserMutation' }))(Authorization);
 

@@ -1,4 +1,4 @@
-import { setUserToken } from '../actions';
+import { setUserInfo } from '../actions';
 
 const initialState = {
   token: '',
@@ -7,7 +7,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case setUserToken:
+    case setUserInfo:
       return {
         ...state,
         token: action.user.token,

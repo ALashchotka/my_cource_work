@@ -5,16 +5,16 @@ import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import { PropTypes } from 'prop-types';
 
-import { setTokenAction } from '../../actions';
+import { setUserInfoAction } from '../../actions';
 import { getStorageValue } from '../../utils';
-import { TOKEN } from '../../constants';
+import { USERINFO } from '../../constants';
 
 class App extends Component {
   componentDidMount() {
-    getStorageValue(TOKEN)
-      .then((token) => {
-        if (token) {
-          this.props.setTokenAction(token);
+    getStorageValue(USERINFO)
+      .then((user) => {
+        if (user) {
+          this.props.setUserInfoAction(JSON.parse(user));
         }
       });
     Actions.main();
@@ -30,7 +30,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  setTokenAction: PropTypes.func.isRequired
+  setUserInfoAction: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -38,7 +38,7 @@ const mapStateToProps = state => ({
   user: state.user.token
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setTokenAction }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setUserInfoAction }, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
