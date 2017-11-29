@@ -31,7 +31,7 @@ const Client = () => {
           <Scene key="root">
             <Scene key="app" hideNavBar component={App} title="App" initial />
             <Scene key="main" hideNavBar component={Main} title="Main" />
-            <Scene key="authorization" hideNavBar component={Authorization} />
+            <Scene key="authorization" hideNavBar component={Authorization} title="Authorization" />
             <Scene key="registration" hideNavBar component={Registration} />
             <Scene key="basket" hideNavBar component={Main} />
             <Scene key="directory" hideNavBar component={Main} />

@@ -144,7 +144,7 @@ const checkUserMutation = gql`
 
 const addUserMutation = gql`
     mutation addUser($email: String, $password: String, $name: String, $mobile: String) {
-      addUser(email: $email, password: $password) {
+      addUser(email: $email, password: $password, name: $name, mobile: $mobile) {
         email
         password,
         name,
