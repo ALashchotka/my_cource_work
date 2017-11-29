@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 
 import { styles } from './styles';
 import { TOKEN } from '../../constants';
-import { SERVER_ERROR, LOGIN_ERROR } from '../../helpers';
+import { SERVER_ERROR, LOGIN_ERROR, loginValidation } from '../../helpers';
 import { setStorageValue } from '../../utils';
 import { TabNavigator } from '../../features';
 import { setTokenAction } from '../../actions';
@@ -47,9 +47,11 @@ class Authorization extends Component {
   }
 
   onLogInButton() {
-    this.props.checkUserMutation({
-      variables: { email: this.state.email, password: this.state.password }
-    })
+    const { email, password } = this.state;
+    if (loginValidation(email, password)) {
+      this.props.checkUserMutation({
+        variables: { email, password }
+      })
       .then(({ data }) => {
         console.warn(data);
         const { message, token } = data.checkUser;
@@ -62,13 +64,17 @@ class Authorization extends Component {
         } else {
           this.showModal(LOGIN_ERROR);
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
         this.showModal(SERVER_ERROR);
         console.log(error);
       });
+    } else {
+      this.showModal(LOGIN_ERROR);
+    }
   }
 
-  showModal(modalText) {
+  showModal(modalText = '') {
     this.setState({ isModalVisible: true, modalText });
     setTimeout(() => this.setState({ isModalVisible: false }), 2000);
   }
@@ -83,6 +89,7 @@ class Authorization extends Component {
               <TextInput
                 style={styles.input}
                 onChangeText={this.onChangeEmailInput}
+                keyboardType="email-address"
                 placeholder="Email"
               />
               <TextInput

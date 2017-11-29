@@ -11,15 +11,15 @@ import { styles } from './styles';
 import { TabNavigator } from '../../features';
 import { ModalView, ShowIf } from '../../components';
 import { 
-  SERVER_ERROR, PASSWORD_ERROR, NAME_ERROR, EMAIL_ERROR, 
-  MOBILE_ERROR, everyFalse, everyTrue
+  SERVER_ERROR, PASSWORD_ERROR, USERNAME_ERROR, EMAIL_ERROR, 
+  MOBILE_ERROR, everyFalse, everyTrue, emailValidation, mobileValidation, 
+  userNameValidation, passwordValidation, signUpValidation
 } from '../../helpers';
-import { emailValidation, mobileValidation, userNameValidation, passwordValidation } from './helpers';
 
 class Registration extends Component {
   constructor(props) {
     super(props);
-    this.onChangeNameInput = this.onChangeNameInput.bind(this);
+    this.onChangeUserNameInput = this.onChangeUserNameInput.bind(this);
     this.onChangeEmailInput = this.onChangeEmailInput.bind(this);
     this.onChangeMobileInput = this.onChangeMobileInput.bind(this);
     this.onChangePasswordInput = this.onChangePasswordInput.bind(this);
@@ -29,7 +29,7 @@ class Registration extends Component {
       email: '',
       password: '',
       mobile: '',
-      name: '',
+      userName: '',
       isModalVisible: false,
       modalText: '',
       errors: {
@@ -41,11 +41,11 @@ class Registration extends Component {
     };
   }
 
-  onChangeNameInput(name) {
-    name = trim(name);
+  onChangeUserNameInput(userName) {
+    userName = trim(userName);
     this.setState({
-      name,
-      errors: { ...this.state.errors, isNameErrorVisible: !userNameValidation(name)}
+      userName,
+      errors: { ...this.state.errors, isNameErrorVisible: !userNameValidation(userName)}
     });
   }
 
@@ -75,10 +75,10 @@ class Registration extends Component {
 
   onSignUpButton() {
     const {
-      name, email, mobile, password, errors
+      userName, email, mobile, password, errors
     } = this.state;
-    if (everyFalse(errors) && everyTrue([name, email, mobile, password])) {
-      this.props.newUserMutation({ variables: { email, password, name, mobile }})
+    if (signUpValidation(email, mobile, userName, password)) {
+      this.props.newUserMutation({ variables: { email, password, userName, mobile }})
       .then(
         ({ data }) => {
           this.showModal('Registration complete');
@@ -118,17 +118,18 @@ class Registration extends Component {
             <View>
               <TextInput
                 style={styles.input}
-                onChangeText={this.onChangeNameInput}
-                placeholder="Name"
+                onChangeText={this.onChangeUserNameInput}
+                placeholder="Username"
               />
               <ShowIf condition={isNameErrorVisible}>
                 <Text style={styles.error}>
-                  {NAME_ERROR}
+                  {USERNAME_ERROR}
                 </Text>
               </ShowIf>
               <TextInput
                 style={styles.input}
                 onChangeText={this.onChangeEmailInput}
+                keyboardType="email-address"
                 placeholder="Email"
               />
               <ShowIf condition={isEmailErrorVisible}>
@@ -139,6 +140,7 @@ class Registration extends Component {
               <TextInput
                 style={styles.input}
                 onChangeText={this.onChangeMobileInput}
+                keyboardType="numeric"
                 placeholder="Mobile number"
               />
               <ShowIf condition={isMobileErrorVisible}>
