@@ -1,7 +1,8 @@
 import { setUserToken } from '../actions';
 
 const initialState = {
-  token: ''
+  token: '',
+  username: ''
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -9,7 +10,8 @@ export default function reducer(state = initialState, action = {}) {
     case setUserToken:
       return {
         ...state,
-        token: action.token
+        token: action.user.token,
+        username: action.user.username
       };
     default:
       return state;

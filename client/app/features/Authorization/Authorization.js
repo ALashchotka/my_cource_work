@@ -59,7 +59,7 @@ class Authorization extends Component {
           setStorageValue(TOKEN, token)
             .then(() => {
               Actions.profile();
-              this.props.setTokenAction(token);
+              this.props.setTokenAction({token, username});
             });
         } else {
           this.showModal(LOGIN_ERROR);
