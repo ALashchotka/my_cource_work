@@ -18,7 +18,7 @@ class Registration extends Component {
     this.onChangeMobileInput = this.onChangeMobileInput.bind(this);
     this.onChangePasswordInput = this.onChangePasswordInput.bind(this);
     this.onSignUpButton = this.onSignUpButton.bind(this);
-    this.onModal = this.onModal.bind(this);
+    this.showModal = this.showModal.bind(this);
     this.state = {
       email: '',
       password: '',
@@ -63,16 +63,20 @@ class Registration extends Component {
       }
     })
       .then(({ data }) => {
+        Actions.authorization();
         console.warn('got data', data);
       }).catch((error) => {
         console.log('there was an error sending the query', error);
+        this.setState({
+          modalText: 'Unable connect to server'
+        });
+        this.showModal();
       });
-    Actions.authorization();
   }
 
-  onModal() {
+  showModal() {
     this.setState({ isModalVisible: true });
-    setTimeout(() => this.setState({ isModalVisible: false }), 2000);
+    setTimeout(() => this.setState({ isModalVisible: false, modalText: '' }), 2000);
   }
 
   render() {

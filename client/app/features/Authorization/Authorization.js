@@ -21,7 +21,7 @@ class Authorization extends Component {
     this.onChangePasswordInput = this.onChangePasswordInput.bind(this);
     this.onSignUpButton = this.onSignUpButton.bind(this);
     this.onLogInButton = this.onLogInButton.bind(this);
-    this.onModal = this.onModal.bind(this);
+    this.showModal = this.showModal.bind(this);
     this.state = {
       inputEmail: '',
       inputPassword: '',
@@ -58,14 +58,14 @@ class Authorization extends Component {
               this.props.setTokenAction(token);
             });
         } else {
-          this.onModal();
+          this.showModal();
         }
       }).catch((error) => {
         console.log(error);
       });
   }
 
-  onModal() {
+  showModal() {
     this.setState({ isModalVisible: true });
     setTimeout(() => this.setState({ isModalVisible: false }), 2000);
   }
