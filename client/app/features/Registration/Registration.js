@@ -129,18 +129,8 @@ class Registration extends Component {
 }
 
 Registration.propTypes = {
-  // checkUserMutation: PropTypes.func.isRequired,
   newUserMutation: PropTypes.func.isRequired
 };
-
-const checkUserMutation = gql`
-    mutation checkUser($email: String, $password: String, $name: String, $mobile: String) {
-     checkUser(email: $email, password: $password, name: $name, mobile: $mobile) {
-        token
-        message
-      }
-    }
-`;
 
 const addUserMutation = gql`
     mutation addUser($email: String, $password: String, $name: String, $mobile: String) {
@@ -155,7 +145,6 @@ const addUserMutation = gql`
 
 const RegistrationWithMutations = compose(
   graphql(addUserMutation, { name: 'newUserMutation' }),
-  graphql(checkUserMutation, { name: 'checkUserMutation' }),
 )(Registration);
 
 

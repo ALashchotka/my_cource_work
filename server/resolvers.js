@@ -1,9 +1,9 @@
 const { createNote } = require('./db/utils/uitls');
+const { uniqueId } = require('lodash');
 
 const resolveFunctions = {
   Mutation: {
     checkUser: async function checkUser(_, { email, password }, ctx) {
-      console.log(ctx.token);
       let userData;
       const user = new ctx.constructor.User();
       await user.findUser(email, password)
@@ -11,7 +11,7 @@ const resolveFunctions = {
           userData = data;
         });
       if (userData) {
-        return { token: `token-${email}`, message: 'Log in success' };
+        return { token: `${uniqueId('user_')}`, message: 'Log in success' };
       }
       return { message: 'Log in failed' };
     },
