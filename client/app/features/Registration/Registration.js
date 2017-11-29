@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Button, View, TextInput } from 'react-native';
+import { KeyboardAvoidingView, Button, View, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
+import { trim } from 'lodash';
 
 import { styles } from './styles';
 import { TabNavigator } from '../../features';
-import { ModalView } from '../../components';
-import { SERVER_ERROR } from '../../constants';
+import { ModalView, ShowIf } from '../../components';
+import { 
+  SERVER_ERROR, PASSWORD_ERROR, NAME_ERROR, EMAIL_ERROR, 
+  MOBILE_ERROR, everyFalse, everyTrue
+} from '../../helpers';
+import { emailValidation, mobileValidation, userNameValidation, passwordValidation } from './helpers';
 
 class Registration extends Component {
   constructor(props) {
@@ -26,62 +31,86 @@ class Registration extends Component {
       mobile: '',
       name: '',
       isModalVisible: false,
-      modalText: ''
+      modalText: '',
+      errors: {
+        isNameErrorVisible: false,
+        isEmailErrorVisible: false,
+        isMobileErrorVisible: false,
+        isPasswordErrorVisible: false
+      }
     };
   }
 
   onChangeNameInput(name) {
+    name = trim(name);
     this.setState({
-      name
+      name,
+      errors: { ...this.state.errors, isNameErrorVisible: !userNameValidation(name)}
     });
   }
 
   onChangeEmailInput(email) {
+    email = trim(email);
     this.setState({
-      email
+      email,
+      errors: { ...this.state.errors, isEmailErrorVisible: !emailValidation(email)}
     });
   }
 
   onChangeMobileInput(mobile) {
+    mobile = trim(mobile);
     this.setState({
-      mobile
+      mobile,
+      errors: { ...this.state.errors, isMobileErrorVisible: !mobileValidation(mobile)}
     });
   }
 
   onChangePasswordInput(password) {
+    password = trim(password);
     this.setState({
-      password
+      password,
+      errors: { ...this.state.errors, isPasswordErrorVisible: !passwordValidation(password)}
     });
   }
 
   onSignUpButton() {
     const {
-      name, email, mobile, password
+      name, email, mobile, password, errors
     } = this.state;
-    this.props.newUserMutation({
-      variables: {
-        email, password, name, mobile
-      }
-    })
-      .then(({ data }) => {
-        Actions.authorization();
-        console.warn('got data', data);
-      }).catch((error) => {
-        console.log('there was an error sending the query', error);
-        this.setState({
-          modalText: SERVER_ERROR
-        });
-        this.showModal();
-      });
+    if (everyFalse(errors) && everyTrue([name, email, mobile, password])) {
+      this.props.newUserMutation({ variables: { email, password, name, mobile }})
+      .then(
+        ({ data }) => {
+          this.showModal('Registration complete');
+          setTimeout(() => {
+            Actions.authorization();            
+          }, 3000);
+          console.warn('got data', data);
+        }
+      )
+      .catch(
+        (error) => {
+          console.log('there was an error sending the query', error);
+          this.showModal(SERVER_ERROR);
+        }
+      );
+    }
   }
 
-  showModal() {
-    this.setState({ isModalVisible: true });
-    setTimeout(() => this.setState({ isModalVisible: false, modalText: '' }), 2000);
+  showModal(modalText = '') {
+    this.setState({ modalText, isModalVisible: true });
+    setTimeout(() => this.setState({ isModalVisible: false, modalText: '' }), 3000);
   }
 
   render() {
-    const { modalText, isModalVisible } = this.state;
+    const { 
+      modalText, isModalVisible, errors: { 
+        isNameErrorVisible,
+        isEmailErrorVisible,
+        isMobileErrorVisible,
+        isPasswordErrorVisible
+      }
+    } = this.state;
     return (
       <View style={styles.conatiner}>
         <KeyboardAvoidingView behavior="position" >
@@ -92,21 +121,41 @@ class Registration extends Component {
                 onChangeText={this.onChangeNameInput}
                 placeholder="Name"
               />
+              <ShowIf condition={isNameErrorVisible}>
+                <Text style={styles.error}>
+                  {NAME_ERROR}
+                </Text>
+              </ShowIf>
               <TextInput
                 style={styles.input}
                 onChangeText={this.onChangeEmailInput}
                 placeholder="Email"
               />
+              <ShowIf condition={isEmailErrorVisible}>
+                <Text style={styles.error}>
+                  {EMAIL_ERROR}
+                </Text>
+              </ShowIf>
               <TextInput
                 style={styles.input}
                 onChangeText={this.onChangeMobileInput}
                 placeholder="Mobile number"
               />
+              <ShowIf condition={isMobileErrorVisible}>
+                <Text style={styles.error}>
+                  {MOBILE_ERROR}
+                </Text>
+              </ShowIf>
               <TextInput
                 style={styles.input}
                 onChangeText={this.onChangePasswordInput}
                 placeholder="Password"
               />
+              <ShowIf condition={isPasswordErrorVisible}>
+                <Text style={styles.error}>
+                  {PASSWORD_ERROR}
+                </Text>
+              </ShowIf>
             </View>
             <View style={styles.buttonGroup}>
               <Button

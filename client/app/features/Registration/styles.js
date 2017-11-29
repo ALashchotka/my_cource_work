@@ -26,5 +26,10 @@ export const styles = StyleSheet.create({
   button: {
     backgroundColor: 'grey',
     paddingTop: 10
+  },
+  error: {
+    color: 'red',
+    fontSize: 10,
+    paddingLeft: 10
   }
 });

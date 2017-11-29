@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 import { styles } from './styles';
-import { TOKEN, SERVER_ERROR, LOGIN_ERROR } from '../../constants';
+import { TOKEN } from '../../constants';
+import { SERVER_ERROR, LOGIN_ERROR } from '../../helpers';
 import { setStorageValue } from '../../utils';
 import { TabNavigator } from '../../features';
 import { setTokenAction } from '../../actions';
