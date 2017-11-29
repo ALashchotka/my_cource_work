@@ -1,11 +1,11 @@
 const UserModel = require('../../model');
 
 module.exports.createNote = function createNote(data) {
-  const { email, password, name, mobile } = data;
+  const { email, password, username, mobile } = data;
   const user = new UserModel({
     email,
     password,
-    name,
+    username,
     mobile,
   });
 

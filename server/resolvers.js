@@ -18,8 +18,8 @@ const resolveFunctions = {
     addUser: function addUser(root, data, ctx) {
       console.log(ctx);
       createNote(data);
-      const { email, password, name, mobile } = data;
-      return { email, password, name, mobile };
+      const { email, password, username, mobile } = data;
+      return { email, password, username, mobile };
     },
   },
 };

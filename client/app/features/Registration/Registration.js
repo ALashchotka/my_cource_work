@@ -29,7 +29,7 @@ class Registration extends Component {
       email: '',
       password: '',
       mobile: '',
-      userName: '',
+      username: '',
       isModalVisible: false,
       modalText: '',
       errors: {
@@ -41,11 +41,11 @@ class Registration extends Component {
     };
   }
 
-  onChangeUserNameInput(userName) {
-    userName = trim(userName);
+  onChangeUserNameInput(username) {
+    username = trim(username);
     this.setState({
-      userName,
-      errors: { ...this.state.errors, isNameErrorVisible: !userNameValidation(userName)}
+      username,
+      errors: { ...this.state.errors, isNameErrorVisible: !userNameValidation(username)}
     });
   }
 
@@ -75,10 +75,10 @@ class Registration extends Component {
 
   onSignUpButton() {
     const {
-      userName, email, mobile, password, errors
+      username, email, mobile, password, errors
     } = this.state;
-    if (signUpValidation(email, mobile, userName, password)) {
-      this.props.newUserMutation({ variables: { email, password, userName, mobile }})
+    if (signUpValidation(email, mobile, username, password)) {
+      this.props.newUserMutation({ variables: { email, password, username, mobile }})
       .then(
         ({ data }) => {
           this.showModal('Registration complete');
@@ -184,11 +184,11 @@ Registration.propTypes = {
 };
 
 const addUserMutation = gql`
-    mutation addUser($email: String, $password: String, $name: String, $mobile: String) {
-      addUser(email: $email, password: $password, name: $name, mobile: $mobile) {
+    mutation addUser($email: String, $password: String, $username: String, $mobile: String) {
+      addUser(email: $email, password: $password, username: $username, mobile: $mobile) {
         email
         password,
-        name,
+        username,
         mobile
       }
     }

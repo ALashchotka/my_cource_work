@@ -2,7 +2,7 @@ const typeDefinitions = `
 type User {
   email: String
   password: String,
-  name: String,
+  username: String,
   mobile: String
 }
 type Login {
@@ -11,7 +11,7 @@ type Login {
 }
 type Mutation {
   checkUser(email: String, password: String): Login
-  addUser(email: String, password: String, name: String, mobile: String): User
+  addUser(email: String, password: String, username: String, mobile: String): User
 }
 type Query {
   email: String
