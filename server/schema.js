@@ -6,8 +6,9 @@ type User {
   mobile: String
 }
 type Login {
- token: String
- message: String
+  token: String
+  message: String
+  username: String
 }
 type Mutation {
   checkUser(email: String, password: String): Login

@@ -25,7 +25,6 @@ const executableSchema = makeExecutableSchema({
   resolvers: Resolvers,
 });
 
-
 app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({
   schema: executableSchema,
   context: {

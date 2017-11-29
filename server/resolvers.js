@@ -11,7 +11,11 @@ const resolveFunctions = {
           userData = data;
         });
       if (userData) {
-        return { token: `${uniqueId('user_')}`, message: 'Log in success' };
+        return {
+          token: `${uniqueId('user_')}`,
+          message: 'Log in success',
+          username: `${userData.username}`,
+        };
       }
       return { message: 'Log in failed' };
     },

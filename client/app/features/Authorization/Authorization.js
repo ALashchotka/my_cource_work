@@ -54,7 +54,7 @@ class Authorization extends Component {
       })
       .then(({ data }) => {
         console.warn(data);
-        const { message, token } = data.checkUser;
+        const { message, token, username } = data.checkUser;
         if (message === 'Log in success') {
           setStorageValue(TOKEN, token)
             .then(() => {
@@ -146,6 +146,7 @@ const checkUserMutation = gql`
      checkUser(email: $email, password: $password) {
         token
         message
+        username
       }
     }
 `;
