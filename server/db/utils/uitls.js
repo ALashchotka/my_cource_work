@@ -1,9 +1,12 @@
 const UserModel = require('../../model');
 
 module.exports.createNote = function createNote(data) {
+  const { email, password, name, mobile } = data;
   const user = new UserModel({
-    email: data.email,
-    password: data.password,
+    email,
+    password,
+    name,
+    mobile,
   });
 
   return user.save((err, item) => {

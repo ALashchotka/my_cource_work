@@ -4,7 +4,7 @@ const Mongoose = require('mongoose');
 
 const PORT = 3000;
 const app = express();
-const { apolloExpress, graphiqlExpress } = require('apollo-server');
+const { graphiqlExpress } = require('apollo-server');
 const { graphqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 

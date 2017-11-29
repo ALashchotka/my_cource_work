@@ -7,9 +7,8 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   formContainer: {
-    marginTop: 150,
-    marginHorizontal: 50,
-    paddingBottom: 100
+    marginTop: 100,
+    marginHorizontal: 50
   },
   textCenter: {
     textAlign: 'center',
@@ -22,10 +21,7 @@ export const styles = StyleSheet.create({
     width: 200,
     height: 200
   },
-  emailInput: {
-    marginTop: 10
-  },
-  passwordInput: {
+  input: {
     marginTop: 10
   },
   button: {

@@ -6,63 +6,68 @@ import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
-import { bindActionCreators } from 'redux';
 
 import { styles } from './styles';
-import { TOKEN } from '../../constants';
-import { setStorageValue } from '../../utils';
 import { TabNavigator } from '../../features';
-import { setTokenAction } from '../../actions';
 
-class Authorization extends Component {
+class Registration extends Component {
   constructor(props) {
     super(props);
+    this.onChangeNameInput = this.onChangeNameInput.bind(this);
     this.onChangeEmailInput = this.onChangeEmailInput.bind(this);
+    this.onChangeMobileInput = this.onChangeMobileInput.bind(this);
     this.onChangePasswordInput = this.onChangePasswordInput.bind(this);
     this.onSignUpButton = this.onSignUpButton.bind(this);
-    this.onLogInButton = this.onLogInButton.bind(this);
     this.onModal = this.onModal.bind(this);
     this.state = {
-      inputEmail: '',
-      inputPassword: '',
-      isModalVisible: false
+      email: '',
+      password: '',
+      mobile: '',
+      name: '',
+      isModalVisible: false,
+      modalText: ''
     };
+  }
+
+  onChangeNameInput(name) {
+    this.setState({
+      name
+    });
   }
 
   onChangeEmailInput(email) {
     this.setState({
-      inputEmail: email
+      email
+    });
+  }
+
+  onChangeMobileInput(mobile) {
+    this.setState({
+      mobile
     });
   }
 
   onChangePasswordInput(password) {
     this.setState({
-      inputPassword: password
+      password
     });
   }
-  onSignUpButton() {
-    Actions.registration();
-  }
 
-  onLogInButton() {
-    this.props.checkUserMutation({
-      variables: { email: this.state.inputEmail, password: this.state.inputPassword }
+  onSignUpButton() {
+    const {
+      name, email, mobile, password
+    } = this.state;
+    this.props.newUserMutation({
+      variables: {
+        email, password, name, mobile
+      }
     })
       .then(({ data }) => {
-        console.warn(data);
-        const { message, token } = data.checkUser;
-        if (message === 'Log in success') {
-          setStorageValue(TOKEN, token)
-            .then(() => {
-              Actions.profile();
-              this.props.setTokenAction(token);
-            });
-        } else {
-          this.onModal();
-        }
+        console.warn('got data', data);
       }).catch((error) => {
-        console.log(error);
+        console.log('there was an error sending the query', error);
       });
+    Actions.authorization();
   }
 
   onModal() {
@@ -71,6 +76,7 @@ class Authorization extends Component {
   }
 
   render() {
+    const { modalText } = this.state;
     return (
       <View style={styles.conatiner}>
         <KeyboardAvoidingView behavior="position" >
@@ -78,8 +84,18 @@ class Authorization extends Component {
             <View>
               <TextInput
                 style={styles.input}
+                onChangeText={this.onChangeNameInput}
+                placeholder="Name"
+              />
+              <TextInput
+                style={styles.input}
                 onChangeText={this.onChangeEmailInput}
                 placeholder="Email"
+              />
+              <TextInput
+                style={styles.input}
+                onChangeText={this.onChangeMobileInput}
+                placeholder="Mobile number"
               />
               <TextInput
                 style={styles.input}
@@ -88,24 +104,6 @@ class Authorization extends Component {
               />
             </View>
             <View style={styles.buttonGroup}>
-              <Button
-                style={styles.button}
-                color="grey"
-                title="Log In"
-                onPress={this.onLogInButton}
-              />
-              <View>
-                <View style={{
-                    alignSelf: 'center',
-                    position: 'absolute',
-                    borderBottomColor: 'gray',
-                    borderBottomWidth: 1,
-                    height: '50%',
-                    width: '100%'
-                  }}
-                />
-                <Text style={{ alignSelf: 'center', padding: 10, backgroundColor: 'white' }}>OR</Text>
-              </View>
               <Button
                 style={styles.button}
                 color="grey"
@@ -127,7 +125,7 @@ class Authorization extends Component {
           backdropOpacity={0}
         >
           <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Invalid e-mail or password</Text>
+            <Text style={styles.modalText}>{modalText}</Text>
           </View>
         </Modal>
         <TabNavigator styles={styles.tabNavigator} />
@@ -136,26 +134,35 @@ class Authorization extends Component {
   }
 }
 
-Authorization.propTypes = {
-  checkUserMutation: PropTypes.func.isRequired,
-  setTokenAction: PropTypes.func.isRequired
+Registration.propTypes = {
+  // checkUserMutation: PropTypes.func.isRequired,
+  newUserMutation: PropTypes.func.isRequired
 };
 
 const checkUserMutation = gql`
-    mutation checkUser($email: String, $password: String) {
-     checkUser(email: $email, password: $password) {
+    mutation checkUser($email: String, $password: String, $name: String, $mobile: String) {
+     checkUser(email: $email, password: $password, name: $name, mobile: $mobile) {
         token
         message
       }
     }
 `;
 
-const mapStateToProps = state => ({
-  token: state.user.token
-});
+const addUserMutation = gql`
+    mutation addUser($email: String, $password: String, $name: String, $mobile: String) {
+      addUser(email: $email, password: $password) {
+        email
+        password,
+        name,
+        mobile
+      }
+    }
+`;
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setTokenAction }, dispatch);
+const RegistrationWithMutations = compose(
+  graphql(addUserMutation, { name: 'newUserMutation' }),
+  graphql(checkUserMutation, { name: 'checkUserMutation' }),
+)(Registration);
 
-const AuthorizationWithMutations = compose(graphql(checkUserMutation, { name: 'checkUserMutation' }))(Authorization);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthorizationWithMutations);
+export default connect(({ tabNavigator }) => ({ tabNavigator }))(RegistrationWithMutations);
