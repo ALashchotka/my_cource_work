@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Button, View, Text, TextInput } from 'react-native';
+import { KeyboardAvoidingView, Button, View, Text, TextInput, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -58,8 +58,9 @@ class Authorization extends Component {
         if (message === 'Log in success') {
           setStorageValue(USERINFO, JSON.stringify({token, username}))
             .then(() => {
-              Actions.profile();
               this.props.setUserInfoAction({token, username});
+              Keyboard.dismiss();
+              Actions.profile();
             });
         } else {
           this.showModal(LOGIN_ERROR);

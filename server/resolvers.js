@@ -1,5 +1,4 @@
 const { createNote } = require('./db/utils/uitls');
-const { uniqueId } = require('lodash');
 
 const resolveFunctions = {
   Mutation: {
@@ -12,7 +11,7 @@ const resolveFunctions = {
         });
       if (userData) {
         return {
-          token: `${uniqueId('user_')}`,
+          token: `${userData.username}_${userData.username.length}`,
           message: 'Log in success',
           username: `${userData.username}`,
         };
