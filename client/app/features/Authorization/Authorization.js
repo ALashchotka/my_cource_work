@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Button, View, Text, TextInput } from 'react-native';
+import { KeyboardAvoidingView, Button, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
+import Modal from 'react-native-modal';
 
 import { styles } from './styles';
 import { TOKEN } from '../../constants';
@@ -18,9 +19,11 @@ class Authorization extends Component {
     this.onChangePasswordInput = this.onChangePasswordInput.bind(this);
     this.onSignUpButton = this.onSignUpButton.bind(this);
     this.onLogInButton = this.onLogInButton.bind(this);
+    this.onModal = this.onModal.bind(this);
     this.state = {
       inputEmail: '',
-      inputPassword: ''
+      inputPassword: '',
+      isModalVisible: false
     };
   }
 
@@ -36,16 +39,16 @@ class Authorization extends Component {
     });
   }
   onSignUpButton() {
-    this.props.newUserMutation({
-      variables: { email: this.state.inputEmail, password: this.state.inputPassword }
-    })
-      .then(({ data }) => {
-        console.warn('got data', data);
-      }).catch((error) => {
-        console.log('there was an error sending the query', error);
-      });
+    // this.props.newUserMutation({
+    //   variables: { email: this.state.inputEmail, password: this.state.inputPassword }
+    // })
+    //   .then(({ data }) => {
+    //     console.warn('got data', data);
+    //   }).catch((error) => {
+    //     console.log('there was an error sending the query', error);
+    //   });
+    Actions.registration();
   }
-
 
   onLogInButton() {
     this.props.checkUserMutation({
@@ -56,12 +59,19 @@ class Authorization extends Component {
         if (data.checkUser.message === 'Log in success') {
           setStorageValue(TOKEN, data.checkUser.token)
             .then(() => {
-              Actions.app();
+              Actions.profile();
             });
+        } else {
+          this.onModal();
         }
       }).catch((error) => {
         console.log(error);
       });
+  }
+
+  onModal() {
+    this.setState({ isModalVisible: true });
+    setTimeout(() => this.setState({ isModalVisible: false }), 2000);
   }
 
   render() {
@@ -109,6 +119,21 @@ class Authorization extends Component {
             </View>
           </View>
         </KeyboardAvoidingView>
+        <Modal
+          isVisible={this.state.isModalVisible}
+          style={styles.modal}
+          animationIn="slideInUp"
+          animationOut="slideOutDown"
+          animationInTiming={800}
+          animationOutTiming={800}
+          backdropTransitionInTiming={800}
+          backdropTransitionOutTiming={800}
+          backdropOpacity={0}
+        >
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>Invalid e-mail or password</Text>
+          </View>
+        </Modal>
         <TabNavigator styles={styles.tabNavigator} />
       </View>
     );
