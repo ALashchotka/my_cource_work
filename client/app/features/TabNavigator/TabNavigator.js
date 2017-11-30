@@ -34,8 +34,8 @@ class TabNavigator extends Component {
         <View name="main" style={styles.iconStyle}>
           <Image source={icons.main}/>
         </View>
-        <View name="directory" style={styles.iconStyle}>
-          <Image source={icons.directory}/>
+        <View name="catalogue" style={styles.iconStyle}>
+          <Image source={icons.catalogue}/>
         </View>
         <View name="favourite" style={styles.iconStyle}>
           <Image source={icons.favourite}/>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
@@ -8,6 +8,7 @@ import { PropTypes } from 'prop-types';
 import { setUserInfoAction } from '../../actions';
 import { getStorageValue } from '../../utils';
 import { USERINFO } from '../../constants';
+import { TabNavigator } from '../TabNavigator/index';
 
 class App extends Component {
   componentDidMount() {
@@ -23,7 +24,9 @@ class App extends Component {
   render() {
     return (
       <View>
+        <StatusBar backgroundColor="transparent" translucent/>
         <ActivityIndicator size="large" />
+        <TabNavigator />
       </View>
     );
   }
