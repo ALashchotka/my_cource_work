@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 
+import { icons } from '../../styles';
 import { toRGBA } from '../../utils';
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -15,6 +16,13 @@ export const styles = StyleSheet.create({
     borderTopColor: toRGBA('black', 0.2)
   },
   selectedStyle: {
-    color: toRGBA('black')
+    opacity: 1
+  },
+  iconStyle: {
+    opacity: 0.2
   }
 });
+
+export {
+  styles, icons
+}

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Tabs from 'react-native-tabs';
 import PropTypes from 'prop-types';
-import { Text } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 import { invoke } from 'lodash';
 
-import { styles } from './styles';
+import { styles, icons } from './styles';
 import { setCurrentPageAction } from '../../actions';
 
 class TabNavigator extends Component {
@@ -31,10 +31,18 @@ class TabNavigator extends Component {
         selectedStyle={styles.selectedStyle}
         onSelect={this.onSelectTab}
       >
-        <Text name="main">Main</Text>
-        <Text name="directory">Directory</Text>
-        <Text name="favourite">Favourite</Text>
-        <Text name="profile">Profile</Text>
+        <View name="main" style={styles.iconStyle}>
+          <Image source={icons.main}/>
+        </View>
+        <View name="directory" style={styles.iconStyle}>
+          <Image source={icons.directory}/>
+        </View>
+        <View name="favourite" style={styles.iconStyle}>
+          <Image source={icons.favourite}/>
+        </View>
+        <View name="profile" style={styles.iconStyle}>
+          <Image source={icons.profile}/>
+        </View>
       </Tabs>
     );
   }
