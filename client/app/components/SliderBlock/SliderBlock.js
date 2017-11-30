@@ -31,6 +31,7 @@ class SliderBlock extends Component {
         <ImageBackground 
           style={styles.backdrop} 
           source={{uri: item.image}}
+          key={item.id}
         >
           <View style={styles.backdropView}>
             <Text style={styles.headline}>{item.text}</Text>
@@ -45,7 +46,7 @@ class SliderBlock extends Component {
     const slides = this.createSlides();
     return (
       <View style={styles.container}>
-        <Swiper 
+        <Swiper
           style={styles.wrapper}
           activeDotColor='white'
           activeDotStyle={styles.activeDot}

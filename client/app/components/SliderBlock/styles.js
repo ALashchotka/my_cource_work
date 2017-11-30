@@ -21,8 +21,8 @@ const styles = {
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontWeight: 'semi-bold'
+    fontSize: 14,
+    fontWeight: '600'
   },
   headline: {
     fontSize: 20,
