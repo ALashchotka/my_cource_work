@@ -9,73 +9,65 @@ import { bindActionCreators } from 'redux';
 
 import { styles } from './styles';
 import { USERINFO } from '../../constants';
-import { SERVER_ERROR, LOGIN_ERROR, loginValidation } from '../../helpers';
+import { SERVER_ERROR, loginValidation } from '../../helpers';
 import { setStorageValue } from '../../utils';
 import { TabNavigator } from '../../features';
 import { setUserInfoAction } from '../../actions';
 import { ModalView } from '../../components';
 
 class Authorization extends Component {
-  constructor(props) {
-    super(props);
-    this.onChangeEmailInput = this.onChangeEmailInput.bind(this);
-    this.onChangePasswordInput = this.onChangePasswordInput.bind(this);
-    this.onSignUpButton = this.onSignUpButton.bind(this);
-    this.onLogInButton = this.onLogInButton.bind(this);
-    this.showModal = this.showModal.bind(this);
-    this.state = {
-      email: '',
-      password: '',
-      isModalVisible: false,
-      modalText: ''
-    };
+  state = {
+    email: '',
+    password: '',
+    isModalVisible: false,
+    modalText: ''
+  };
+
+  onChangeEmailInput = (email) => {
+    this.setState({ email });
   }
 
-  onChangeEmailInput(email) {
-    this.setState({
-      email
-    });
+  onChangePasswordInput = (password) => {
+    this.setState({ password });
   }
 
-  onChangePasswordInput(password) {
-    this.setState({
-      password
-    });
-  }
-  onSignUpButton() {
+  onSignUpButton = () => {
     Actions.registration();
   }
 
-  onLogInButton() {
+  onLogInButton = () => {
     const { email, password } = this.state;
+    Keyboard.dismiss();
     if (loginValidation(email, password)) {
-      this.props.checkUserMutation({
-        variables: { email, password }
-      })
-      .then(({ data }) => {
-        console.warn(data);
-        const { message, token, username } = data.checkUser;
-        if (message === 'Log in success') {
-          setStorageValue(USERINFO, JSON.stringify({token, username}))
-            .then(() => {
-              this.props.setUserInfoAction({token, username});
-              Keyboard.dismiss();
-              Actions.profile();
-            });
-        } else {
-          this.showModal(LOGIN_ERROR);
-        }
-      })
-      .catch((error) => {
-        this.showModal(SERVER_ERROR);
-        console.log(error);
-      });
+      this.logInProcessing();
     } else {
       this.showModal(LOGIN_ERROR);
     }
   }
 
-  showModal(modalText = '') {
+  logInProcessing = () => {
+    const { checkUserMutation, setUserInfoAction } = this.props;
+    const { email, password } = this.state;
+    checkUserMutation({ variables: { email, password }})
+    .then(({ data }) => {
+      console.warn(data);
+      const { message, token, username } = data.checkUser;
+      message === 'Log in success' 
+        ? setStorageValue(USERINFO, JSON.stringify({token, username}))
+          .then(() => {
+            setUserInfoAction({token, username});
+            Actions.profile();
+          })
+        : this.showModal(message);
+    })
+    .catch((error) => {
+      this.showModal(SERVER_ERROR);
+      console.log(error);
+    });
+
+  }
+
+  showModal = (modalText = '') => {
     this.setState({ isModalVisible: true, modalText });
     setTimeout(() => this.setState({ isModalVisible: false }), 2000);
   }
