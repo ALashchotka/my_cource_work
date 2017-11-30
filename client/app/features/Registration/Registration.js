@@ -173,7 +173,7 @@ class Registration extends Component {
           isModalVisible={isModalVisible}
           modalText={modalText}
         />
-        <TabNavigator styles={styles.tabNavigator} />
+        <TabNavigator />
       </View>
     );
   }

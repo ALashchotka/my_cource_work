@@ -116,7 +116,7 @@ class Authorization extends Component {
                     width: '100%'
                   }}
                 />
-                <Text style={{ alignSelf: 'center', padding: 10, backgroundColor: 'white' }}>OR</Text>
+                <Text style={{ alignSelf: 'center', padding: 10, backgroundColor: '#f3f3f3' }}>OR</Text>
               </View>
               <Button
                 style={styles.button}
@@ -131,7 +131,7 @@ class Authorization extends Component {
           isModalVisible={isModalVisible}
           modalText={modalText}
         />
-        <TabNavigator styles={styles.tabNavigator} />
+        <TabNavigator />
       </View>
     );
   }

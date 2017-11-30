@@ -1,32 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 import { toRGBA } from '../../utils';
+import { colors } from '../../styles';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5
-  },
-  selectedIconStyle: {
-    borderTopWidth: 2,
-    borderTopColor: 'red'
-  },
-  tab: {
-    backgroundColor: toRGBA('white', 0.8)
-  },
-  selectedStyle: {
-    color: toRGBA('white')
+    backgroundColor: colors.backgroundColor
   }
 });

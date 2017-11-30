@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
 import { TabNavigator } from '../../features';
+import { styles } from './styles';
 
 class Profile extends Component {
   componentDidMount() {
@@ -14,7 +16,9 @@ class Profile extends Component {
 
   render() {
     return (
-      <TabNavigator />
+      <View style={styles.container}>
+        <TabNavigator />
+      </View>
     );
   }
 }

@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
+import { colors } from '../../styles';
+
 export const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: colors.backgroundColor
   },
   formContainer: {
     marginTop: 100,

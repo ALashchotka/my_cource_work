@@ -1,7 +1,7 @@
 import { icons } from './icons';
-import { opacities } from './opacities';
+import { colors } from './colors';
 
 export {
   icons,
-  opacities
+  colors
 };

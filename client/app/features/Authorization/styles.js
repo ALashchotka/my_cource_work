@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
+import { colors } from '../../styles';
+
 export const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: colors.backgroundColor
   },
   formContainer: {
     marginTop: 150,
@@ -21,10 +23,7 @@ export const styles = StyleSheet.create({
     width: 200,
     height: 200
   },
-  emailInput: {
-    marginTop: 10
-  },
-  passwordInput: {
+  input: {
     marginTop: 10
   },
   button: {
