@@ -13,6 +13,7 @@ Mongoose.connect('mongodb://localhost:27017/users', (err) => {
   if (err) {
     return err;
   }
+  console.log('connected to database');
   return true;
 });
 

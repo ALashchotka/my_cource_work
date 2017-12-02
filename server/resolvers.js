@@ -1,4 +1,4 @@
-const { createNote } = require('./db/utils/uitls');
+const { createUserNote } = require('./db/utils/uitls');
 
 const resolveFunctions = {
   Mutation: {
@@ -20,7 +20,7 @@ const resolveFunctions = {
     },
     addUser: function addUser(root, data, ctx) {
       console.log(ctx);
-      createNote(data);
+      createUserNote(data);
       const { email, password, username, mobile } = data;
       return { email, password, username, mobile };
     },

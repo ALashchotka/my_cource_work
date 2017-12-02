@@ -7,6 +7,19 @@ const UserSchema = Mongoose.Schema({
   mobile: String,
 });
 
-const User = Mongoose.model('User', UserSchema);
 
-module.exports = User;
+const ClothingSchema = Mongoose.Schema({
+  id: Number,
+  name: String,
+  price: Number,
+  filter: String,
+  topic: String,
+  images: [String],
+  sizes: [Number],
+});
+
+
+const UserModel = Mongoose.model('User', UserSchema);
+const ClothingModel = Mongoose.model('Clothing', ClothingSchema);
+
+module.exports = { UserModel, ClothingModel };

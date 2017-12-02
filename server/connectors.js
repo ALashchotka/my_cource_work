@@ -1,4 +1,4 @@
-const UserModel = require('./model');
+const { UserModel, ClothingModel } = require('./model');
 
 class User {
   constructor() {
@@ -9,4 +9,13 @@ class User {
   }
 }
 
-module.exports = { User };
+class Clothing {
+  constructor() {
+    this.findClothing = (id) => {
+      const clothing = ClothingModel.findOne({ id }).exec();
+      return clothing;
+    };
+  }
+}
+
+module.exports = { User, Clothing };
