@@ -41,7 +41,7 @@ class Authorization extends Component {
     if (loginValidation(email, password)) {
       this.logInProcessing();
     } else {
-      this.showModal(LOGIN_ERROR);
+      this.showModal('Log in failed');
     }
   }
 

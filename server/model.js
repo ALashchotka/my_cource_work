@@ -7,7 +7,6 @@ const UserSchema = Mongoose.Schema({
   mobile: String,
 });
 
-
 const ClothingSchema = Mongoose.Schema({
   id: Number,
   name: String,
@@ -17,7 +16,6 @@ const ClothingSchema = Mongoose.Schema({
   images: [String],
   sizes: [Number],
 });
-
 
 const UserModel = Mongoose.model('User', UserSchema);
 const ClothingModel = Mongoose.model('Clothing', ClothingSchema);

@@ -15,6 +15,10 @@ class Clothing {
       const clothing = ClothingModel.findOne({ id }).exec();
       return clothing;
     };
+    this.findClothingByFilterAndTopic = (filter, topic) => {
+      const clothing = ClothingModel.find({ filter, topic }).exec();
+      return clothing;
+    };
   }
 }
 

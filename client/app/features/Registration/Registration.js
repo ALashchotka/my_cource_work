@@ -5,7 +5,7 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
-import { trim } from 'lodash';
+import { trim, toLower } from 'lodash';
 
 import { styles } from './styles';
 import { TabNavigator } from '../../features';
@@ -50,7 +50,7 @@ class Registration extends Component {
   }
 
   onChangeEmailInput(email) {
-    email = trim(email);
+    email = toLower(trim(email));
     this.setState({
       email,
       errors: { ...this.state.errors, isEmailErrorVisible: !emailValidation(email)}
@@ -78,6 +78,7 @@ class Registration extends Component {
       username, email, mobile, password, errors
     } = this.state;
     if (signUpValidation(email, mobile, username, password)) {
+      console.log('here');
       this.props.newUserMutation({ variables: { email, password, username, mobile }})
       .then(
         ({ data }) => {

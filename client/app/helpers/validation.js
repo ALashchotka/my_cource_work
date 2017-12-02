@@ -13,7 +13,7 @@ export const userNameValidation = (userName) => {
 }
 
 export const passwordValidation = (password) => {
-    return password.length > 6;
+    return password.length >= 6;
 }
 
 export const signUpValidation = (email, mobile, userName, password) => {

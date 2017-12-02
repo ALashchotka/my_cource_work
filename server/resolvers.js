@@ -1,4 +1,4 @@
-const { createUserNote } = require('./db/utils/uitls');
+const { createUserNote, createClothingNote } = require('./db/utils/uitls');
 
 const resolveFunctions = {
   Mutation: {
@@ -23,6 +23,38 @@ const resolveFunctions = {
       createUserNote(data);
       const { email, password, username, mobile } = data;
       return { email, password, username, mobile };
+    },
+    checkClothing: async function checkClothing(_, { id }, ctx) {
+      let clothingData;
+      const clothing = new ctx.constructor.Clothing();
+      await clothing.findClothing(id)
+        .then((data) => {
+          clothingData = data;
+        });
+      if (clothingData) {
+        return {
+          ...clothingData,
+        };
+      }
+      return { message: 'Getting clothing failed' };
+    },
+    addClothing: function addClothing(root, data, ctx) {
+      console.log(ctx);
+      createClothingNote(data);
+      const { id, name, price, filter, topic, images, sizes } = data;
+      return { id, name, price, filter, topic, images, sizes };
+    },
+    getClothings: async function getClothings(_, { filter, topic }, ctx) {
+      let clothingData;
+      const clothing = new ctx.constructor.Clothing();
+      await clothing.findClothingByFilterAndTopic(filter, topic)
+        .then((data) => {
+          clothingData = data;
+        });
+      if (clothingData) {
+        return clothingData;
+      }
+      return { message: 'Getting clothing failed' };
     },
   },
 };
