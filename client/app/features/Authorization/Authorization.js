@@ -6,11 +6,12 @@ import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { toLower } from 'lodash';
 
 import { styles } from './styles';
 import { USERINFO } from '../../constants';
-import { SERVER_ERROR, loginValidation } from '../../helpers';
-import { setStorageValue } from '../../utils';
+import { SERVER_ERROR } from '../../helpers';
+import { setStorageValue, loginValidation } from '../../utils';
 import { TabNavigator } from '../../features';
 import { setUserInfoAction } from '../../actions';
 import { ModalView } from '../../components';
@@ -24,7 +25,7 @@ class Authorization extends Component {
   };
 
   onChangeEmailInput = (email) => {
-    this.setState({ email });
+    this.setState({ email: toLower(email) });
   }
 
   onChangePasswordInput = (password) => {

@@ -1,4 +1,4 @@
-import { EMAIL_REGEXP, NAME_REGEXP, MOBILE_REGEXP } from './regexps';
+import { EMAIL_REGEXP, NAME_REGEXP, MOBILE_REGEXP } from '../helpers';
 
 export const emailValidation = (email) => {
     return EMAIL_REGEXP.test(email);

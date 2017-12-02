@@ -10,11 +10,11 @@ import { trim, toLower } from 'lodash';
 import { styles } from './styles';
 import { TabNavigator } from '../../features';
 import { ModalView, ShowIf } from '../../components';
+import { SERVER_ERROR, PASSWORD_ERROR, USERNAME_ERROR, EMAIL_ERROR, MOBILE_ERROR } from '../../helpers';
 import { 
-  SERVER_ERROR, PASSWORD_ERROR, USERNAME_ERROR, EMAIL_ERROR, 
-  MOBILE_ERROR, everyFalse, everyTrue, emailValidation, mobileValidation, 
-  userNameValidation, passwordValidation, signUpValidation
-} from '../../helpers';
+  everyFalse, everyTrue, emailValidation, mobileValidation, 
+  userNameValidation, passwordValidation, signUpValidation 
+} from '../../utils';
 
 class Registration extends Component {
   constructor(props) {
