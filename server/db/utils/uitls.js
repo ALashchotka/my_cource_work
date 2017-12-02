@@ -1,5 +1,4 @@
 const { UserModel, ClothingModel } = require('../../model');
-const { uniqueId } = require('lodash');
 
 function createUserNote(data) {
   const { email, password, username, mobile } = data;
@@ -17,9 +16,9 @@ function createUserNote(data) {
 }
 
 function createClothingNote(data) {
-  const { name, price, filter, topic, images, sizes } = data;
+  const { id, name, price, filter, topic, images, sizes } = data;
   const clothing = new ClothingModel({
-    id: uniqueId(),
+    id,
     name,
     price,
     filter,
