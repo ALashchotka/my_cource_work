@@ -3,7 +3,7 @@ import { Text, View, ImageBackground, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
-import { map, invoke } from 'lodash';
+import { map, invoke, split, capitalize } from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
@@ -13,8 +13,9 @@ import { setCurrentPageAction, setFilterAction } from '../../../actions';
 
 class RowImages extends Component {
   onPress = (button) => () => {
+    const filter = capitalize(split(button, '‘')[0]);
     this.props.setCurrentPageAction('catalogue');
-    this.props.setFilterAction(button);
+    this.props.setFilterAction(filter);
     invoke(Actions, 'catalogue');
   }
 
