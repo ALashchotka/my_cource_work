@@ -4,20 +4,24 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import { PropTypes } from 'prop-types';
+import { graphql, compose } from 'react-apollo';
 
-import { setUserInfoAction } from '../../actions';
+import { setUserInfoAction, setAllClothingsAction } from '../../actions';
 import { getStorageValue } from '../../utils';
 import { USERINFO } from '../../constants';
-import { TabNavigator } from '../TabNavigator/index';
+import { getClothingsMutation } from '../../mutations';
 
 class App extends Component {
   componentDidMount() {
+    const { setUserInfoAction, setAllClothingsAction, getClothings } = this.props;
     getStorageValue(USERINFO)
       .then((user) => {
         if (user) {
-          this.props.setUserInfoAction(JSON.parse(user));
+          setUserInfoAction(JSON.parse(user));
         }
       });
+    getClothings({variables: '' })
+     .then((data) => setAllClothingsAction(data.data.getClothings));
     Actions.main();
   }
 
@@ -26,22 +30,20 @@ class App extends Component {
       <View>
         <StatusBar backgroundColor="transparent" translucent/>
         <ActivityIndicator size="large" />
-        <TabNavigator />
       </View>
     );
   }
 }
 
 App.propTypes = {
-  setUserInfoAction: PropTypes.func.isRequired
+  setUserInfoAction: PropTypes.func.isRequired,
+  getClothings: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  tabNavigator: state.tabNavigator.tabNavigator,
-  user: state.user.token
-});
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setUserInfoAction }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setUserInfoAction, setAllClothingsAction }, dispatch);
 
+const AppWithMutations = compose(graphql(getClothingsMutation, { name: 'getClothings' }))(App);
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(AppWithMutations);

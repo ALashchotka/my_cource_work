@@ -9,20 +9,13 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
 import { styles } from './styles';
-import { setCurrentPageAction } from '../../../actions';
-import { getClothingsMutation } from '../../../mutations';
+import { setCurrentPageAction, setFilterAction } from '../../../actions';
 
 class RowImages extends Component {
   onPress = (button) => () => {
-    // this.props.setCurrentPageAction('catalogue');
-    // this.props.setCurrentFilter(button.text);
-    // invoke(Actions, 'catalogue');
-    const obj = {
-      filter: 'Men',
-      topic: 'Mama'
-    }
-    this.props.getClothings({variables: '' })
-     .then((data) => {console.log(data)});
+    this.props.setCurrentPageAction('catalogue');
+    this.props.setFilterAction(button);
+    invoke(Actions, 'catalogue');
   }
 
   createRow = () => {
@@ -52,16 +45,8 @@ class RowImages extends Component {
   }
 }
 
-RowImages.propTypes = {
-  getClothings: PropTypes.func.isRequired
-};
-
-const RowImagesWithMutations = compose(
-  graphql(getClothingsMutation, { name: 'getClothings' }),
-)(RowImages);
-
 const mapStateToProps = (state) => { return {}};
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setCurrentPageAction }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setCurrentPageAction, setFilterAction }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(RowImagesWithMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(RowImages);
