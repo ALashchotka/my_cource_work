@@ -22,9 +22,8 @@ mutation addUser($email: String, $password: String, $username: String, $mobile: 
 `;
 
 export const addClothingMutation = gql`
-mutation addClothing($id: String, $name: String, $price: Int, $filter: String, $topic: String, $images: [String], $sizes: [Int]) {
-  addClothing(id: $id, name: $name, price: $price, filter: $filter, topic: $topic, images: $images, sizes: $sizes) {
-    id,
+mutation addClothing($name: String, $price: Int, $filter: String, $topic: String, $images: [String], $sizes: [Int]) {
+  addClothing(name: $name, price: $price, filter: $filter, topic: $topic, images: $images, sizes: $sizes) {
     name,
     price,
     filter,
@@ -38,7 +37,7 @@ mutation addClothing($id: String, $name: String, $price: Int, $filter: String, $
 export const getClothingsMutation = gql`
 mutation getClothings($something: String) {
   getClothings(something: $something) {
-    id,
+    _id,
     name,
     price,
     filter,

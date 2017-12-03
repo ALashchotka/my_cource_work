@@ -6,7 +6,7 @@ type User {
   mobile: String
 }
 type Clothing {
-  id: String,
+  _id: String,
   name: String,
   price: Int,
   filter: String,
@@ -22,8 +22,8 @@ type Login {
 type Mutation {
   checkUser(email: String, password: String): Login
   addUser(email: String, password: String, username: String, mobile: String): User
-  addClothing(id: String, name: String, price: Int, filter: String, topic: String, images: [String], sizes: [Int]): Clothing
-  checkClothing(id: String): Clothing
+  addClothing(name: String, price: Int, filter: String, topic: String, images: [String], sizes: [Int]): Clothing
+  checkClothing(_id: String): Clothing
   getClothings(something: String): [Clothing]
 }
 type Query {

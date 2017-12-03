@@ -41,8 +41,8 @@ const resolveFunctions = {
     addClothing: function addClothing(root, data, ctx) {
       console.log(ctx);
       createClothingNote(data);
-      const { id, name, price, filter, topic, images, sizes } = data;
-      return { id, name, price, filter, topic, images, sizes };
+      const { name, price, filter, topic, images, sizes } = data;
+      return { name, price, filter, topic, images, sizes };
     },
     getClothings: async function getClothings(_, $, ctx) {
       let clothingData;

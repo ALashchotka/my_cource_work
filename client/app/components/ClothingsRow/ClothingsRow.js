@@ -17,9 +17,9 @@ export default class ClothingsRow extends Component {
     console.log(item);
     return (
       <TouchableOpacity 
-        onPress={this.onPress(item.id)} 
+        onPress={this.onPress(item._id)} 
         style={styles.element}
-        key={item.id}
+        key={item._id}
       >
         <Image
           style={styles.image} 

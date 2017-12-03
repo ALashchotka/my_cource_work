@@ -16,9 +16,8 @@ function createUserNote(data) {
 }
 
 function createClothingNote(data) {
-  const { id, name, price, filter, topic, images, sizes } = data;
+  const { name, price, filter, topic, images, sizes } = data;
   const clothing = new ClothingModel({
-    id,
     name,
     price,
     filter,

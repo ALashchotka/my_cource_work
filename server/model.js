@@ -8,7 +8,7 @@ const UserSchema = Mongoose.Schema({
 });
 
 const ClothingSchema = Mongoose.Schema({
-  id: String,
+  // id: String,
   name: String,
   price: Number,
   filter: String,
