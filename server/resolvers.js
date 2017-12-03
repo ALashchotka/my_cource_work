@@ -27,7 +27,7 @@ const resolveFunctions = {
     checkClothing: async function checkClothing(_, { id }, ctx) {
       let clothingData;
       const clothing = new ctx.constructor.Clothing();
-      await clothing.findClothing(id)
+      await clothing.findClothingById(id)
         .then((data) => {
           clothingData = data;
         });
@@ -44,11 +44,12 @@ const resolveFunctions = {
       const { id, name, price, filter, topic, images, sizes } = data;
       return { id, name, price, filter, topic, images, sizes };
     },
-    getClothings: async function getClothings(_, { filter, topic }, ctx) {
+    getClothings: async function getClothings(_, $, ctx) {
       let clothingData;
       const clothing = new ctx.constructor.Clothing();
-      await clothing.findClothingByFilterAndTopic(filter, topic)
+      await clothing.findClothings()
         .then((data) => {
+          console.log(data);
           clothingData = data;
         });
       if (clothingData) {

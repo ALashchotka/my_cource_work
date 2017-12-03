@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, Button, View, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import { trim, toLower } from 'lodash';
@@ -15,6 +14,7 @@ import {
   everyFalse, everyTrue, emailValidation, mobileValidation, 
   userNameValidation, passwordValidation, signUpValidation 
 } from '../../utils';
+import { addUserMutation } from '../../mutations';
 
 class Registration extends Component {
   constructor(props) {
@@ -78,7 +78,6 @@ class Registration extends Component {
       username, email, mobile, password, errors
     } = this.state;
     if (signUpValidation(email, mobile, username, password)) {
-      console.log('here');
       this.props.newUserMutation({ variables: { email, password, username, mobile }})
       .then(
         ({ data }) => {
@@ -91,7 +90,7 @@ class Registration extends Component {
       )
       .catch(
         (error) => {
-          console.log('there was an error sending the query', error);
+          console.warn('there was an error sending the query', error);
           this.showModal(SERVER_ERROR);
         }
       );
@@ -183,17 +182,6 @@ class Registration extends Component {
 Registration.propTypes = {
   newUserMutation: PropTypes.func.isRequired
 };
-
-const addUserMutation = gql`
-    mutation addUser($email: String, $password: String, $username: String, $mobile: String) {
-      addUser(email: $email, password: $password, username: $username, mobile: $mobile) {
-        email
-        password,
-        username,
-        mobile
-      }
-    }
-`;
 
 const RegistrationWithMutations = compose(
   graphql(addUserMutation, { name: 'newUserMutation' }),

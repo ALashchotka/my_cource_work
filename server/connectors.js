@@ -11,12 +11,12 @@ class User {
 
 class Clothing {
   constructor() {
-    this.findClothing = (id) => {
+    this.findClothingById = (id) => {
       const clothing = ClothingModel.findOne({ id }).exec();
       return clothing;
     };
-    this.findClothingByFilterAndTopic = (filter, topic) => {
-      const clothing = ClothingModel.find({ filter, topic }).exec();
+    this.findClothings = () => {
+      const clothing = ClothingModel.find().exec();
       return clothing;
     };
   }

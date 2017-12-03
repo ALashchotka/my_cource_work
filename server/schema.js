@@ -24,7 +24,7 @@ type Mutation {
   addUser(email: String, password: String, username: String, mobile: String): User
   addClothing(id: String, name: String, price: Int, filter: String, topic: String, images: [String], sizes: [Int]): Clothing
   checkClothing(id: String): Clothing
-  getClothings(filter: String, topic: String): [Clothing]
+  getClothings(something: String): [Clothing]
 }
 type Query {
   email: String

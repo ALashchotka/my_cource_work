@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, Button, View, Text, TextInput, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -15,6 +14,7 @@ import { setStorageValue, loginValidation } from '../../utils';
 import { TabNavigator } from '../../features';
 import { setUserInfoAction } from '../../actions';
 import { ModalView } from '../../components';
+import { checkUserMutation } from '../../mutations';
 
 class Authorization extends Component {
   state = {
@@ -53,17 +53,15 @@ class Authorization extends Component {
     .then(({ data }) => {
       console.warn(data);
       const { message, token, username } = data.checkUser;
-      message === 'Log in success' 
-        ? setStorageValue(USERINFO, JSON.stringify({token, username}))
-          .then(() => {
-            setUserInfoAction({token, username});
-            Actions.profile();
-          })
-        : this.showModal(message);
+      if (message === 'Log in success') { 
+        setUserInfoAction({token, username});
+        setStorageValue(USERINFO, JSON.stringify({token, username}));
+        Actions.profile();
+      } else this.showModal(message);
     })
     .catch((error) => {
       this.showModal(SERVER_ERROR);
-      console.log(error);
+      console.warn(error);
     });
 
   }
@@ -134,16 +132,6 @@ Authorization.propTypes = {
   checkUserMutation: PropTypes.func.isRequired,
   setUserInfoAction: PropTypes.func.isRequired
 };
-
-const checkUserMutation = gql`
-    mutation checkUser($email: String, $password: String) {
-     checkUser(email: $email, password: $password) {
-        token
-        message
-        username
-      }
-    }
-`;
 
 const mapStateToProps = state => ({
   token: state.user.token
