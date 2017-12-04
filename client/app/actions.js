@@ -2,6 +2,7 @@ export const setUserInfo = 'user/setUserInfo';
 export const setPage = 'tabNavigator/setPage';
 export const setFilter = 'catalogue/setFilter';
 export const setAllClothings = 'catalogue/setAllClothings';
+export const setCurrentClothingItem = 'catalogue/setCurrentClothingItem';
 
 export const setUserInfoAction = user => (dispatch) => {
   dispatch({
@@ -28,5 +29,12 @@ export const setAllClothingsAction = data => (dispatch) => {
   dispatch({
     type: setAllClothings,
     data
+  });
+}
+
+export const setCurrentClothingItemAction = item => (dispatch) => {
+  dispatch({
+    type: setCurrentClothingItem,
+    item
   });
 }

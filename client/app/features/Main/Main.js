@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { sampleSize } from 'lodash';
 
 import { styles } from './styles';

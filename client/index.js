@@ -9,7 +9,7 @@ import ApolloClient from 'apollo-client';
 
 import configureStore from './app/store';
 import {
-  App, Authorization, Basket, Catalogue, Main, Profile, Registration
+  App, Authorization, Basket, Catalogue, Main, Profile, Registration, ClothingView
 } from './app/features';
 
 console.disableYellowBox = true;
@@ -29,14 +29,15 @@ const Client = () => {
       <Provider store={store}>
         <RouterWithRedux>
           <Scene key="root">
-            <Scene key="app" hideNavBar component={App} title="App" initial />
-            <Scene key="main" hideNavBar component={Main} title="Main" />
-            <Scene key="authorization" hideNavBar component={Authorization} title="Authorization" />
+            <Scene key="app" hideNavBar component={App} initial />
+            <Scene key="main" hideNavBar component={Main} />
+            <Scene key="authorization" hideNavBar component={Authorization} />
             <Scene key="registration" hideNavBar component={Registration} />
             <Scene key="basket" hideNavBar component={Main} />
             <Scene key="catalogue" hideNavBar component={Main} />
-            <Scene key="profile" hideNavBar component={Profile} title="Profile" />
+            <Scene key="profile" hideNavBar component={Profile} />
             <Scene key="favourite" hideNavBar component={Main} />
+            <Scene key="clothingView" hideNavBar component={ClothingView} />
           </Scene>
         </RouterWithRedux>
       </Provider>

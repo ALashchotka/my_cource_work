@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ class Profile extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>Basket</Text>
         <TabNavigator />
       </View>
     );
