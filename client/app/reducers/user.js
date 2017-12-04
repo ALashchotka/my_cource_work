@@ -1,8 +1,11 @@
-import { setUserInfo } from '../actions';
+import { without } from 'lodash';
+
+import { setUserInfo, addToFavourites, removeFromFavourites } from '../actions';
 
 const initialState = {
   token: '',
-  username: ''
+  username: '',
+  favourites: []
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -12,6 +15,16 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         token: action.user.token,
         username: action.user.username
+      };
+    case addToFavourites: 
+      return {
+        ...state,
+        favourites: state.favourites.push(action.item)
+      };
+    case addToFavourites: 
+      return {
+        ...state,
+        favourites: without(state.favourites, action.item)
       };
     default:
       return state;

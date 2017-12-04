@@ -11,7 +11,7 @@ import RowImages from './RowImages';
 
 class Main extends Component {
   render() {
-    const dataForClothingsRow = sampleSize(this.props.clothingsData, 4);
+    const dataForClothingsRow = sampleSize(this.props.clothingsData, 10);
     return (
       <View style={styles.container}>
         <ScrollView>

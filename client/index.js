@@ -11,6 +11,7 @@ import configureStore from './app/store';
 import {
   App, Authorization, Basket, Catalogue, Main, Profile, Registration, ClothingView
 } from './app/features';
+import { ClothingsRow } from './app/components';
 
 console.disableYellowBox = true;
 
@@ -36,7 +37,7 @@ const Client = () => {
             <Scene key="basket" hideNavBar component={Main} />
             <Scene key="catalogue" hideNavBar component={Main} />
             <Scene key="profile" hideNavBar component={Profile} />
-            <Scene key="favourite" hideNavBar component={Main} />
+            <Scene key="favourite" hideNavBar component={ClothingsRow} />
             <Scene key="clothingView" hideNavBar component={ClothingView} />
           </Scene>
         </RouterWithRedux>

@@ -3,6 +3,8 @@ export const setPage = 'tabNavigator/setPage';
 export const setFilter = 'catalogue/setFilter';
 export const setAllClothings = 'catalogue/setAllClothings';
 export const setCurrentClothingItem = 'catalogue/setCurrentClothingItem';
+export const addToFavourites = 'user/addToFavourites';
+export const removeFromFavourites = 'user/removeFromFavourites';
 
 export const setUserInfoAction = user => (dispatch) => {
   dispatch({
@@ -35,6 +37,20 @@ export const setAllClothingsAction = data => (dispatch) => {
 export const setCurrentClothingItemAction = item => (dispatch) => {
   dispatch({
     type: setCurrentClothingItem,
+    item
+  });
+}
+
+export const addToFavouritesAction = item => (dispatch) => {
+  dispatch({
+    type: addToFavourites,
+    item
+  });
+}
+
+export const removeFromFavouritesAction = item => (dispatch) => {
+  dispatch({
+    type: removeFromFavourites,
     item
   });
 }
