@@ -18,12 +18,15 @@ export default function reducer(state = initialState, action = {}) {
         username: action.user.username,
         isAdmin: action.user.isAdmin
       };
-    case addToFavourites: 
+    case addToFavourites: {
+      const newFavourites = state.favourites;
+      newFavourites.push(action.item);
       return {
         ...state,
-        favourites: state.favourites.push(action.item)
+        favourites: newFavourites
       };
-    case addToFavourites: 
+    }
+    case removeFromFavourites: 
       return {
         ...state,
         favourites: without(state.favourites, action.item)

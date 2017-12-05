@@ -5,6 +5,7 @@ import { map, invoke } from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 import { styles } from './styles';
 import { setCurrentPageAction } from '../../actions';
@@ -60,6 +61,11 @@ class SliderBlock extends Component {
     )
   }
 }
+
+SliderBlock.propTypes = {
+  source: PropTypes.array.isRequired,
+  setCurrentPageAction: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => { return {}};
 
