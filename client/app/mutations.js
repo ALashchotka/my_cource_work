@@ -6,6 +6,7 @@ mutation checkUser($email: String, $password: String) {
     token
     message
     username
+    isAdmin
   }
 }
 `;

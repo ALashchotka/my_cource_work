@@ -7,6 +7,7 @@ function createUserNote(data) {
     password,
     username,
     mobile,
+    isAdmin: false
   });
 
   return user.save((err, item) => {

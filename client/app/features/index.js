@@ -5,6 +5,7 @@ import { TabNavigator } from './TabNavigator';
 import { Profile } from './Profile';
 import { Registration } from './Registration';
 import { ClothingView } from './ClothingView';
+import { Favourite } from './Favourite';
 
 export {
   App,
@@ -13,5 +14,6 @@ export {
   TabNavigator,
   Profile,
   Registration,
-  ClothingView
+  ClothingView,
+  Favourite
 };

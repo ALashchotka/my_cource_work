@@ -52,10 +52,10 @@ class Authorization extends Component {
     checkUserMutation({ variables: { email, password }})
     .then(({ data }) => {
       console.warn(data);
-      const { message, token, username } = data.checkUser;
+      const { message, token, username, isAdmin } = data.checkUser;
       if (message === 'Log in success') { 
-        setUserInfoAction({token, username});
-        setStorageValue(USERINFO, JSON.stringify({token, username}));
+        setUserInfoAction({token, username, isAdmin});
+        setStorageValue(USERINFO, JSON.stringify({token, username, isAdmin}));
         Actions.profile();
       } else this.showModal(message);
     })

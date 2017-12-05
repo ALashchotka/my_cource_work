@@ -5,10 +5,10 @@ const UserSchema = Mongoose.Schema({
   password: String,
   username: String,
   mobile: String,
+  isAdmin: Boolean
 });
 
 const ClothingSchema = Mongoose.Schema({
-  // id: String,
   name: String,
   price: Number,
   filter: String,

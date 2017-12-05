@@ -9,7 +9,6 @@ import { styles } from './styles';
 class ClothingView extends Component {
   render() {
     const item = find(clothingsData, ['_id', id]);
-    console.log(item);
     return (
       <View style={styles.container}>
         {elements}

@@ -10,10 +10,12 @@ const resolveFunctions = {
           userData = data;
         });
       if (userData) {
+        console.log(userData);
         return {
           token: `${userData.username}_${userData.username.length}`,
           message: 'Log in success',
           username: `${userData.username}`,
+          isAdmin: userData.isAdmin
         };
       }
       return { message: 'Log in failed' };
@@ -21,8 +23,8 @@ const resolveFunctions = {
     addUser: function addUser(root, data, ctx) {
       console.log(ctx);
       createUserNote(data);
-      const { email, password, username, mobile } = data;
-      return { email, password, username, mobile };
+      const { email, password, username, mobile, isAdmin } = data;
+      return { email, password, username, mobile, isAdmin };
     },
     checkClothing: async function checkClothing(_, { id }, ctx) {
       let clothingData;

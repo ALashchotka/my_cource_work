@@ -9,7 +9,7 @@ import ApolloClient from 'apollo-client';
 
 import configureStore from './app/store';
 import {
-  App, Authorization, Basket, Catalogue, Main, Profile, Registration, ClothingView
+  App, Authorization, Basket, Catalogue, Main, Profile, Registration, ClothingView, Favourite
 } from './app/features';
 import { ClothingsRow } from './app/components';
 
@@ -37,7 +37,7 @@ const Client = () => {
             <Scene key="basket" hideNavBar component={Main} />
             <Scene key="catalogue" hideNavBar component={Main} />
             <Scene key="profile" hideNavBar component={Profile} />
-            <Scene key="favourite" hideNavBar component={ClothingsRow} />
+            <Scene key="favourite" hideNavBar component={Favourite} />
             <Scene key="clothingView" hideNavBar component={ClothingView} />
           </Scene>
         </RouterWithRedux>
