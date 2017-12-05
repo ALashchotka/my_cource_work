@@ -1,8 +1,8 @@
-import { setFilter, setAllClothings, setCurrentClothingItem } from '../actions';
+import { setFilter, setTopic, setAllClothings, setCurrentClothingItem } from '../actions';
 
 const initialState = {
-  filter: '',
-  topic: '',
+  filter: 'All',
+  topic: 'All',
   allData: [],
   filteredData: [],
   currentClothingItem: {}
@@ -14,6 +14,11 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         filter: action.filter
+      };
+    case setTopic:
+      return {
+        ...state,
+        filter: action.topic
       };
     case setAllClothings: 
       return {

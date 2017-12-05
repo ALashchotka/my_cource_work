@@ -1,6 +1,7 @@
 export const setUserInfo = 'user/setUserInfo';
 export const setPage = 'tabNavigator/setPage';
 export const setFilter = 'catalogue/setFilter';
+export const setTopic = 'catalogue/setTopic';
 export const setAllClothings = 'catalogue/setAllClothings';
 export const setCurrentClothingItem = 'catalogue/setCurrentClothingItem';
 export const addToFavourites = 'user/addToFavourites';
@@ -24,6 +25,13 @@ export const setFilterAction = filter => (dispatch) => {
   dispatch({
     type: setFilter,
     filter
+  });
+};
+
+export const setTopicAction = topic => (dispatch) => {
+  dispatch({
+    type: setTopic,
+    topic
   });
 };
 
