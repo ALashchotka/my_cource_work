@@ -6,6 +6,7 @@ import { Profile } from './Profile';
 import { Registration } from './Registration';
 import { ClothingView } from './ClothingView';
 import { Favourite } from './Favourite';
+import { Catalogue } from './Catalogue';
 
 export {
   App,
@@ -15,5 +16,6 @@ export {
   Profile,
   Registration,
   ClothingView,
-  Favourite
+  Favourite,
+  Catalogue
 };
