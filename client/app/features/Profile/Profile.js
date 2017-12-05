@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
@@ -14,10 +14,31 @@ class Profile extends Component {
     }
   }
 
+  onPress = () => {
+    Actions.catalogue();
+    this.props.setCurrentPageAction('catalogue');
+  }
+
+  createBasket = () => {
+    return (
+      <View style={styles.empty}>
+        <Text style={styles.title}>Basket</Text>
+        <Text style={styles.description}>Basket is empty</Text>
+        <TouchableOpacity
+          style={styles.buttonGoToCatalogue}
+          onPress={this.onPress}
+        >
+          <Text style={styles.buttonText}>Go to Shopping!</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   render() {
+    const basket = this.createBasket();
     return (
       <View style={styles.container}>
-        <Text>Basket</Text>
+        {basket}
         <TabNavigator />
       </View>
     );

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { isEmpty } from 'lodash';
+import { Actions } from 'react-native-router-flux';
 
 import { styles } from './styles';
 import { TabNavigator } from '../TabNavigator';
 import { ClothingsRow } from '../../components';
+import { setCurrentPageAction } from '../../actions';
 
 class Favourite extends Component {
   createFavourites = () => {
@@ -32,7 +35,8 @@ class Favourite extends Component {
   }
 
   onPress = () => {
-    console.log('hi');
+    Actions.catalogue();
+    this.props.setCurrentPageAction('catalogue');
   }
 
   render() {
@@ -50,6 +54,6 @@ const mapStateToProps = state => ({
   favourites: state.user.favourites
 });
 
-// const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setCurrentPageAction }, dispatch);
 
-export default connect(mapStateToProps)(Favourite);
+export default connect(mapStateToProps, mapDispatchToProps)(Favourite);
