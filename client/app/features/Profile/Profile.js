@@ -50,31 +50,18 @@ class Profile extends Component {
     return (
       <View style={styles.favourites}>
         <ClothingsRow clothings={favourites} />
+        <TouchableOpacity style={styles.buyButton} >
+          <Text style={styles.buyButtonText}>Cost: {this.state.cost}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 
-  createBuyButton = () => {
-    const { basket } = this.props;
-    if (isEmpty(basket)) {
-      return (
-        <TouchableOpacity
-          style={styles.buyButton}
-        >
-          <Text style={styles.buyButtonText}>Cost: {this.state.cost}</Text>
-        </TouchableOpacity>
-      )
-    }
-    return null;
-  }
-
   render() {
     const basket = this.createBasket();
-    const buyButton = this.createBuyButton();
     return (
       <View style={styles.container}>
         {basket}
-        {buyButton}
         <TabNavigator />
       </View>
     );

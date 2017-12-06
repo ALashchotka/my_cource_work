@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Picker } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEmpty } from 'lodash';
+import { isEmpty, filter } from 'lodash';
 import PropTypes from 'prop-types';
 
 import { styles } from './styles';
@@ -17,12 +17,14 @@ class Catalogue extends Component {
   }
 
   createCatalogue = () => {
-    const { catalogue } = this.props;
-    // return (
-    //   <View style={styles.catalogue}>
-    //     <ClothingsRow clothings={catalogue} />
-    //   </View>
-    // )
+    const { allData } = this.props.catalogue;
+    let clothings = filter(allData, (item) => this.state.filter === 'All' ? item : item.filter === this.state.filter);
+    clothings = filter(clothings, (item) => this.state.topic === 'All' ? item : item.topic === this.state.topic);
+    return (
+      <View style={styles.catalogue}>
+        <ClothingsRow clothings={clothings} />
+      </View>
+    )
   }
 
   onFilterChange = (value) => {
@@ -50,7 +52,7 @@ class Catalogue extends Component {
         >
           <Picker.Item label="Sex" value="All" />
           <Picker.Item label="Men's" value="Men" />
-          <Picker.Item label="Woman's" value="Woman" />
+          <Picker.Item label="Women's" value="Women" />
           <Picker.Item label="Junior's" value="Junior" />
         </Picker>
         <Picker
@@ -59,9 +61,9 @@ class Catalogue extends Component {
           style={styles.picker}          
         >
           <Picker.Item label="Type" value="All" />
-          <Picker.Item label="Jackets" value="Jacket" />
+          <Picker.Item label="Jackets" value="Jackets" />
           <Picker.Item label="Shoes" value="Shoes" />
-          <Picker.Item label="Jumpers" value="Jumper" />
+          <Picker.Item label="Jumpers" value="Jumpers" />
           <Picker.Item label="Pants" value="Pants" />
         </Picker>
       </View>

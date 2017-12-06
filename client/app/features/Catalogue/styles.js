@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.backgroundColor,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   pickers: {
     paddingVertical: 10,
@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     width: 150
   },
   catalogue: {
-    paddingVertical: 30
+    paddingVertical: 30,
+    marginBottom: 50
   }
 });
 

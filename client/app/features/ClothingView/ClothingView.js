@@ -58,7 +58,6 @@ class ClothingView extends Component {
   
 
   render() {
-    const item = find(clothingsData, ['_id', id]);
     const slides = this.makeSlides();
     const { clothingItem } = this.props;   
     return (
