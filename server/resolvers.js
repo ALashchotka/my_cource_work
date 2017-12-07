@@ -15,7 +15,7 @@ const resolveFunctions = {
           token: `${userData.username}_${userData.username.length}`,
           message: 'Log in success',
           username: `${userData.username}`,
-          isAdmin: userData.isAdmin
+          isAdmin: userData.isAdmin,
         };
       }
       return { message: 'Log in failed' };
