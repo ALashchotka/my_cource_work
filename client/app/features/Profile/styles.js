@@ -4,10 +4,8 @@ import { colors } from '../../styles';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.backgroundColor
-  },
-  favourites: {
-
+    backgroundColor: colors.backgroundColor,
+    alignItems: 'center'
   },
   empty: {
     alignItems: 'center',
@@ -30,9 +28,10 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     backgroundColor: 'white'
   },
-  buttonText: {
-    color: 'black'
-  }
+  button: {
+    backgroundColor: 'grey',
+    paddingTop: 10
+  },
 });
 
 export { styles };

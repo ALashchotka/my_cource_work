@@ -39,7 +39,7 @@ export const ROW_DATA = [
   {
     id: 'main_row_2',
     image: main.womans,
-    text: 'WOMAN‘ S',
+    text: 'WOMEN‘ S',
   },
   {
     id: 'main_row_3',

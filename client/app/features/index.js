@@ -7,6 +7,7 @@ import { Registration } from './Registration';
 import { ClothingView } from './ClothingView';
 import { Favourite } from './Favourite';
 import { Catalogue } from './Catalogue';
+import { AddClothing } from './AddClothing';
 
 export {
   App,
@@ -17,5 +18,6 @@ export {
   Registration,
   ClothingView,
   Favourite,
-  Catalogue
+  Catalogue,
+  AddClothing
 };

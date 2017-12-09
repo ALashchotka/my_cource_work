@@ -8,6 +8,7 @@ export const addToFavourites = 'user/addToFavourites';
 export const removeFromFavourites = 'user/removeFromFavourites';
 export const addToBasket = 'user/addToBasket';
 export const removeFromBasket = 'user/removeFromBasket';
+export const addToAllClothings = 'catalogue/addToAllClothings';
 
 export const setUserInfoAction = user => (dispatch) => {
   dispatch({
@@ -75,6 +76,13 @@ export const addToBasketAction = item => (dispatch) => {
 export const removeFromBasketAction = item => (dispatch) => {
   dispatch({
     type: removeFromBasket,
+    item
+  })
+}
+
+export const addToAllClothingsAction = item => (dispatch) => {
+  dispatch({
+    type: addToAllClothings,
     item
   })
 }

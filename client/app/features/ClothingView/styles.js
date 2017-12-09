@@ -8,9 +8,8 @@ const styles = {
     alignItems: 'center'
   },
   info: {
-    paddingHorizontal: 25,
-    height: 500,
-    width: 400
+    height: 400,
+    width: 300
   },
   image: {
     height: 400
@@ -22,9 +21,33 @@ const styles = {
     fontWeight: 'bold',
     color: 'black'
   },
-  none: {
-    height: 0,
-    width: 0
+  activeDot: {
+    height: 9,
+    width: 9
+  },
+  dot: {
+    height: 9,
+    width: 9,
+    borderWidth: 1, 
+    borderColor: 'white'
+  },
+  button: {
+    backgroundColor: 'grey',
+    paddingTop: 10,
+    marginBottom: 50
+  },
+  sizes: {
+    paddingTop: 10,
+    flexDirection: 'row',
+  },
+  size: {
+    color: 'black',
+    fontSize: 20,
+  },
+  price: {
+    color: 'black',
+    fontSize: 20,
+    paddingTop: 30
   }
 };
 

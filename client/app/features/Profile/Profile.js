@@ -1,28 +1,46 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import { isEmpty, forEach } from 'lodash';
+import { bindActionCreators } from 'redux';
+import { graphql, compose } from 'react-apollo';
 
 import { TabNavigator } from '../../features';
 import { styles } from './styles';
+import { ClothingsRow } from '../../components';
+import { setCurrentPageAction, setUserInfoAction } from '../../actions';
+import { checkClothingMutation } from '../../mutations';
 
 class Profile extends Component {
   state = {
+    items: [],
     cost: 0
   }
 
   componentDidMount() {
-    const { token, basket } = this.props;
-    if (!this.props.token) {
+    const { token, basket, checkClothingMutation } = this.props;
+    if (!token) {
       Actions.authorization();
     } else {
-      let cost = 0;
-      forEach(basket, (item) => cost += item.price);
       this.setState({
-        cost
+        items: [],
+        cost: 0
       })
+      forEach(basket, 
+        (id) => checkClothingMutation({ variables: {id}})
+          .then(({data}) => {
+            const a = this.state.items;
+            const b = this.state.cost + data.checkClothing.price;
+            a.push(data.checkClothing);
+            this.setState({
+              items: a,
+              cost: b
+            });
+          }
+        )
+      );
     }
   }
 
@@ -32,8 +50,8 @@ class Profile extends Component {
   }
 
   createBasket = () => {
-    const { basket } = this.props;
-    if (isEmpty(basket)) {
+    const { items } = this.state;
+    if (isEmpty(items)) {
       return (
         <View style={styles.empty}>
           <Text style={styles.title}>Basket</Text>
@@ -44,15 +62,24 @@ class Profile extends Component {
           >
             <Text style={styles.buttonText}>Go to Shopping!</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.buttonGoToCatalogue, {marginTop: 50}]}
+            onPress={() => { this.props.setUserInfoAction(); Actions.profile() }}
+          >
+            <Text style={styles.buttonText}>Logout</Text>
+          </TouchableOpacity>
         </View>
       );
     }
     return (
       <View style={styles.favourites}>
-        <ClothingsRow clothings={favourites} />
-        <TouchableOpacity style={styles.buyButton} >
-          <Text style={styles.buyButtonText}>Cost: {this.state.cost}</Text>
-        </TouchableOpacity>
+        <ClothingsRow clothings={items} />
+        <Button
+          style={styles.button}
+          color="grey"
+          title={`Buy. Cost: ${this.state.cost}`}
+          onPress={this.onPress}
+        />
       </View>
     );
   }
@@ -69,7 +96,11 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-  token: PropTypes.string.isRequired
+  token: PropTypes.string.isRequired,
+  basket: PropTypes.array.isRequired,
+  setCurrentPageAction: PropTypes.func.isRequired,
+  checkClothingMutation: PropTypes.func.isRequired,
+  setUserInfoAction: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -77,4 +108,8 @@ const mapStateToProps = state => ({
   basket: state.user.basket
 });
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = dispatch => bindActionCreators({ setCurrentPageAction, setUserInfoAction }, dispatch);
+
+const ProfileWithMutations = compose(graphql(checkClothingMutation, { name: 'checkClothingMutation' }))(Profile);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileWithMutations);

@@ -1,4 +1,4 @@
-import { setFilter, setTopic, setAllClothings, setCurrentClothingItem } from '../actions';
+import { setFilter, setTopic, setAllClothings, setCurrentClothingItem, addToAllClothings } from '../actions';
 
 const initialState = {
   filter: 'All',
@@ -30,6 +30,14 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         currentClothingItem: action.item
       }
+    case addToAllClothings: {
+      const data = state.allData;
+      data.push(item);
+      return {
+        ...state,
+        allData: data
+      }
+    }
     default:
       return state;
   }

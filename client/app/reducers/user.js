@@ -1,4 +1,4 @@
-import { without } from 'lodash';
+import { get, without } from 'lodash';
 
 import { setUserInfo, addToFavourites, removeFromFavourites, addToBasket, removeFromBasket } from '../actions';
 
@@ -15,11 +15,11 @@ export default function reducer(state = initialState, action = {}) {
     case setUserInfo:
       return {
         ...state,
-        token: action.user.token,
-        username: action.user.username,
-        isAdmin: action.user.isAdmin || false,
-        favourites: action.user.favourites || [],
-        basket: action.user.basket || []
+        token: get(action.user, 'token') || '',
+        username: get(action.user, 'username') || '',
+        isAdmin: get(action.user, 'isAdmin') || false,
+        favourites: get(action.user, 'favourites') || [],
+        basket: get(action.user, 'basket') || []
       };
     case addToFavourites: {
       const newFavourites = state.favourites;

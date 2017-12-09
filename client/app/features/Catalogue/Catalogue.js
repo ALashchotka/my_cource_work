@@ -4,10 +4,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEmpty, filter } from 'lodash';
 import PropTypes from 'prop-types';
+import { Actions } from 'react-native-router-flux';
 
 import { styles } from './styles';
 import { TabNavigator } from '../TabNavigator';
-import { ClothingsRow } from '../../components';
+import { ClothingsRow, ShowIf } from '../../components';
 import { setFilterAction, setTopicAction } from '../../actions';
 
 class Catalogue extends Component {
@@ -77,14 +78,22 @@ class Catalogue extends Component {
       topic
     })
   }
-  
 
   render() {
+    const { isAdmin } = this.props;
     const catalogue = this.createCatalogue();
     const pickers = this.createPickers();
     return (
       <View style={styles.container}>
         {pickers}
+        <ShowIf condition={!isAdmin}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => Actions.addClothing()}
+          >
+            <Text>Add Clothing</Text>
+          </TouchableOpacity>
+        </ShowIf>
         {catalogue}
         <TabNavigator />
       </View>
@@ -95,11 +104,13 @@ class Catalogue extends Component {
 Catalogue.propTypes = {
   catalogue: PropTypes.object.isRequired,
   setFilterAction: PropTypes.func.isRequired,
-  setTopicAction: PropTypes.func.isRequired
+  setTopicAction: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  catalogue: state.catalogue
+  catalogue: state.catalogue,
+  isAdmin: state.user.isAdmin
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ setFilterAction, setTopicAction }, dispatch);

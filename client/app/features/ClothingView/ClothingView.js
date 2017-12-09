@@ -1,5 +1,5 @@
 import React, { Component, createElement } from 'react'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import { Text, View, Image, Button} from 'react-native'
 import PropTypes, { element } from 'prop-types';
 import { find, map, forEach } from 'lodash';
 import { connect } from 'react-redux';
@@ -8,32 +8,59 @@ import { bindActionCreators } from 'redux';
 
 import { styles } from './styles';
 import { TabNavigator } from '../TabNavigator';
-import { addToFavouritesAction, removeFromFavouritesAction } from '../../actions';
+import { addToFavouritesAction, removeFromFavouritesAction, addToBasketAction, removeFromBasketAction, removeFromBasket } from '../../actions';
+import { ShowIf } from '../../components';
 
 class ClothingView extends Component {
   state = {
-    buttonText: 'Add to favourites'
+    favouritesText: '',
+    basketText: ''
   };
 
-  onPressAddToFavourites = () => {
+  onPressFavourites = () => {
     const { 
-      addToFavouritesAction, removeFromFavouritesAction, favourites, clothingItem 
+      addToFavouritesAction, removeFromFavouritesAction, favourites, clothingItem: { _id } 
     } = this.props;
     let flag = false;
     forEach(favourites, (item) => {
-      if (item === clothingItem._id) flag = true;
+      if (item === _id) flag = true;
     })
     if (flag) {
-      removeFromFavouritesAction(clothingItem._id);
+      removeFromFavouritesAction(_id);
       this.setState({
-        buttonText: 'Add to favourites'
+        favouritesText: 'Add to favourites'
       });
     } else {
-      addToFavouritesAction(this.props.clothingItem._id);
+      addToFavouritesAction(_id);
       this.setState({
-        buttonText: 'Remove from favourites'
+        favouritesText: 'Remove from favourites'
       });
     }
+  }
+
+  onPressBasket = () => {
+    const { 
+      addToBasketAction, removeFromBasketAction, favourites, clothingItem: { _id }
+    } = this.props;
+    let flag = false;
+    forEach(favourites, (item) => {
+      if (item === _id) flag = true;
+    })
+    if (flag) {
+      removeFromBasketAction(_id);
+      this.setState({
+        basketText: 'Add to basket'
+      });
+    } else {
+      addToBasketAction(_id);
+      this.setState({
+        basketText: 'Remove from basket'
+      });
+    }
+  }
+
+  onPressDelete = () => {
+    
   }
 
   makeSlides = () => {
@@ -48,47 +75,88 @@ class ClothingView extends Component {
   }
 
   componentDidMount = () => {
-    const { clothingItem, favourites } = this.props;
+    const { clothingItem: { _id }, favourites, basket } = this.props;
     let flag = false;
     forEach(favourites, (item) => {
-      if (item === clothingItem._id) flag = true;
+      if (item === _id) flag = true;
     })
     if (flag) {
       this.setState({
-        buttonText: 'Remove from favourites'
+        favouritesText: 'Remove from favourites'
       });
     } else {
       this.setState({
-        buttonText: 'Add to favourites'
+        favouritesText: 'Add to favourites'
+      });
+    }
+    forEach(basket, (item) => {
+      if (item === _id) flag = true;
+    })
+    if (flag) {
+      this.setState({
+        basketText: 'Remove from basket'
+      });
+    } else {
+      this.setState({
+        basketText: 'Add to basket'
       });
     }
   }
   
+  createSize = () => {
+    const { sizes } = this.props.clothingItem;
+    return map(sizes, (size) => (
+      <Text style={styles.size}>{size}</Text>
+    ));
+  }
 
   render() {
     const slides = this.makeSlides();
-    const { clothingItem } = this.props;   
+    const sizes = this.createSize();
+    const { clothingItem: { name, price }, isAdmin, token } = this.props;
+    const { favouritesText, basketText } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.info}>
-          <Text style={styles.title}>{clothingItem.name}</Text>
+          <Text style={styles.title}>{ name }</Text>
+          <ShowIf condition={isAdmin}>
+            <Button
+              style={styles.button}
+              color="grey"
+              title="Delete clothing"
+              onPress={this.onPressDelete}
+            />
+          </ShowIf>
           <Swiper
             style={styles.wrapper}
+            activeDotColor='white'
+            activeDotStyle={styles.activeDot}
+            dotStyle={styles.dot}
             autoplay
             autoplayTimeout={5}
-            showsButtons
-            dotStyle={styles.none}
-            activeDotStyle={styles.none}
           >
-            {slides}
+            { slides }
           </Swiper>
         </View>
-        <TouchableOpacity
-          style={styles.addToFavourites}
-          onPress={this.onPressAddToFavourites}
-        >
-          <Text>{this.state.buttonText}</Text>
-        </TouchableOpacity>
+        <Text style={styles.price}>{ `$${price}` }</Text>
+        <View style={styles.sizes}>
+          <Text style={styles.size}>Sizes: </Text>
+          {sizes}
+        </View>
+        <ShowIf condition={token}>
+          <Button
+            style={styles.button}
+            color="grey"
+            title={favouritesText}
+            onPress={this.onPressFavourites}
+          />
+          <Button
+            style={styles.button}
+            color="grey"
+            title={basketText}
+            onPress={this.onPressBasket}
+          />
+        </ShowIf>
         <TabNavigator />
       </View>
     )
@@ -99,14 +167,22 @@ ClothingView.propTypes = {
   clothingItem: PropTypes.object.isRequired,
   addToFavouritesAction: PropTypes.func.isRequired,
   removeFromFavouritesAction: PropTypes.func.isRequired,
-  favourites: PropTypes.array.isRequired
+  addToBasketAction: PropTypes.func.isRequired,
+  removeFromBasketAction: PropTypes.func.isRequired,
+  favourites: PropTypes.array.isRequired,
+  basket: PropTypes.array.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  token: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state) => ({
   clothingItem: state.catalogue.currentClothingItem,
-  favourites: state.user.favourites
+  favourites: state.user.favourites,
+  basket: state.user.basket,
+  isAdmin: state.user.isAdmin,
+  token: state.user.token
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addToFavouritesAction, removeFromFavouritesAction }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addToFavouritesAction, removeFromFavouritesAction, addToBasketAction, removeFromBasketAction }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClothingView);

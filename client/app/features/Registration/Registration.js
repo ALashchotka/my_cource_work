@@ -84,7 +84,7 @@ class Registration extends Component {
           this.showModal('Registration complete');
           setTimeout(() => {
             Actions.authorization();            
-          }, 3000);
+          }, 1500);
           console.warn('got data', data);
         }
       )
@@ -99,7 +99,7 @@ class Registration extends Component {
 
   showModal(modalText = '') {
     this.setState({ modalText, isModalVisible: true });
-    setTimeout(() => this.setState({ isModalVisible: false, modalText: '' }), 3000);
+    setTimeout(() => this.setState({ isModalVisible: false, modalText: '' }), 1500);
   }
 
   render() {
