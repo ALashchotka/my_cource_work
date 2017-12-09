@@ -1,7 +1,7 @@
 import React, { Component, createElement } from 'react'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import PropTypes, { element } from 'prop-types';
-import { find, map } from 'lodash';
+import { find, map, forEach } from 'lodash';
 import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
@@ -19,13 +19,17 @@ class ClothingView extends Component {
     const { 
       addToFavouritesAction, removeFromFavouritesAction, favourites, clothingItem 
     } = this.props;
-    if (find(favourites, clothingItem)) {
-      removeFromFavouritesAction(clothingItem);
+    let flag = false;
+    forEach(favourites, (item) => {
+      if (item === clothingItem._id) flag = true;
+    })
+    if (flag) {
+      removeFromFavouritesAction(clothingItem._id);
       this.setState({
         buttonText: 'Add to favourites'
       });
     } else {
-      addToFavouritesAction(this.props.clothingItem);
+      addToFavouritesAction(this.props.clothingItem._id);
       this.setState({
         buttonText: 'Remove from favourites'
       });
