@@ -49,7 +49,11 @@ class ClothingView extends Component {
 
   componentDidMount = () => {
     const { clothingItem, favourites } = this.props;
-    if (find(favourites, clothingItem)) {
+    let flag = false;
+    forEach(favourites, (item) => {
+      if (item === clothingItem._id) flag = true;
+    })
+    if (flag) {
       this.setState({
         buttonText: 'Remove from favourites'
       });

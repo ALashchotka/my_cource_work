@@ -11,8 +11,8 @@ class User {
 
 class Clothing {
   constructor() {
-    this.findClothingById = (id) => {
-      const clothing = ClothingModel.findOne({ id }).exec();
+    this.findClothingById = (_id) => {
+      const clothing = ClothingModel.findOne({ _id }).exec();
       return clothing;
     };
     this.findClothings = () => {

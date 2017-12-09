@@ -50,3 +50,18 @@ mutation getClothings($something: String) {
   } 
 }
 `;
+
+export const checkClothingMutation = gql`
+mutation checkClothing($id: String) {
+  checkClothing(id: $id) {
+    _id,
+    name,
+    price,
+    filter,
+    topic,
+    images,
+    sizes
+  } 
+}
+
+`

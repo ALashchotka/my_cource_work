@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { isEmpty } from 'lodash';
+import { isEmpty, forEach } from 'lodash';
 import { Actions } from 'react-native-router-flux';
+import { graphql, compose } from 'react-apollo';
 
 import { styles } from './styles';
 import { TabNavigator } from '../TabNavigator';
 import { ClothingsRow } from '../../components';
 import { setCurrentPageAction } from '../../actions';
+import { checkClothingMutation } from '../../mutations';
 
 class Favourite extends Component {
   createFavourites = () => {
-    const { favourites } = this.props;
-    if (isEmpty(favourites)) {
+    const { items } = this.state;
+    if (isEmpty(items)) {
       return (
         <View style={styles.empty}>
           <Text style={styles.title}>Favourites</Text>
@@ -29,10 +31,30 @@ class Favourite extends Component {
     }
     return (
       <View style={styles.favourites}>
-        <ClothingsRow clothings={favourites} />
+        <ClothingsRow clothings={items} />
       </View>
     )
   }
+
+  state = {
+    items: []
+  }
+
+  componentWillMount = () => {
+    const { checkClothingMutation, favourites } = this.props;
+    forEach(favourites, 
+      (id) => checkClothingMutation({ variables: {id}})
+        .then(({data}) => {
+          const a = this.state.items;
+          a.push(data.checkClothing);
+          this.setState({
+            items: a
+          });
+        }
+      )
+    );
+  }
+
 
   onPress = () => {
     Actions.catalogue();
@@ -56,4 +78,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({ setCurrentPageAction }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favourite);
+const FavouriteWithMutations = compose(graphql(checkClothingMutation, { name: 'checkClothingMutation' }))(Favourite);
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavouriteWithMutations);

@@ -36,9 +36,8 @@ const resolveFunctions = {
           clothingData = data;
         });
       if (clothingData) {
-        return {
-          ...clothingData,
-        };
+        console.log(clothingData);
+        return clothingData;
       }
       return { message: 'Getting clothing failed' };
     },
