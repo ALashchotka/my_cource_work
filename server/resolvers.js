@@ -8,14 +8,16 @@ const resolveFunctions = {
       await user.findUser(email, password)
         .then((data) => {
           userData = data;
-        });
+        })
+        .catch(e => console.log(e));
       if (userData) {
-        console.log(userData);
         return {
           token: `${userData.username}_${userData.username.length}`,
           message: 'Log in success',
           username: `${userData.username}`,
           isAdmin: userData.isAdmin,
+          favourites: userData.favourites,
+          basket: userData.basket,
         };
       }
       return { message: 'Log in failed' };
@@ -23,8 +25,8 @@ const resolveFunctions = {
     addUser: function addUser(root, data, ctx) {
       console.log(ctx);
       createUserNote(data);
-      const { email, password, username, mobile, isAdmin } = data;
-      return { email, password, username, mobile, isAdmin };
+      const { email, password, username, mobile, isAdmin, favourites, basket } = data;
+      return { email, password, username, mobile, isAdmin, favourites, basket };
     },
     checkClothing: async function checkClothing(_, { id }, ctx) {
       let clothingData;
@@ -51,7 +53,6 @@ const resolveFunctions = {
       const clothing = new ctx.constructor.Clothing();
       await clothing.findClothings()
         .then((data) => {
-          console.log(data);
           clothingData = data;
         });
       if (clothingData) {

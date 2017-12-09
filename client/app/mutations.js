@@ -1,16 +1,5 @@
 import gql from 'graphql-tag';
 
-export const checkUserMutation = gql`
-mutation checkUser($email: String, $password: String) {
- checkUser(email: $email, password: $password) {
-    token
-    message
-    username
-    isAdmin
-  }
-}
-`;
-
 export const addUserMutation = gql`
 mutation addUser($email: String, $password: String, $username: String, $mobile: String) {
   addUser(email: $email, password: $password, username: $username, mobile: $mobile) {
@@ -18,6 +7,19 @@ mutation addUser($email: String, $password: String, $username: String, $mobile: 
     password,
     username,
     mobile
+  }
+}
+`;
+
+export const checkUserMutation = gql`
+mutation checkUser($email: String, $password: String) {
+ checkUser(email: $email, password: $password) {
+    token
+    message
+    username
+    isAdmin,
+    favourites,
+    basket
   }
 }
 `;

@@ -1,12 +1,13 @@
 import { without } from 'lodash';
 
-import { setUserInfo, addToFavourites, removeFromFavourites } from '../actions';
+import { setUserInfo, addToFavourites, removeFromFavourites, addToBasket, removeFromBasket } from '../actions';
 
 const initialState = {
   token: '',
   username: '',
+  isAdmin: false,
   favourites: [],
-  isAdmin: false
+  basket: []
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -16,7 +17,9 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         token: action.user.token,
         username: action.user.username,
-        isAdmin: action.user.isAdmin
+        isAdmin: action.user.isAdmin,
+        favourites: action.user.favourites,
+        basket: action.user.basket
       };
     case addToFavourites: {
       const newFavourites = state.favourites;
@@ -31,7 +34,19 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         favourites: without(state.favourites, action.item)
       };
-    default:
-      return state;
+    case addToBasket: {
+      const newBasket = state.basket;
+      newBasket.push(action.item);
+      return {
+        ...state,
+        basket: newBasket
+      };
+    }
+    case removeFromBasket:
+      return {
+        ...state,
+        basket: without(state.basket, action.item)
+      };
+    default: return state;
   }
 }

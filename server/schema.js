@@ -4,7 +4,9 @@ type User {
   password: String,
   username: String,
   mobile: String,
-  isAdmin: Boolean
+  isAdmin: Boolean,
+  favourites: [String],
+  basket: [String]
 }
 type Clothing {
   _id: String,
@@ -18,8 +20,10 @@ type Clothing {
 type Login {
   token: String,
   message: String,
-  username: String
-  isAdmin: Boolean
+  username: String,
+  isAdmin: Boolean,
+  favourites: [String],
+  basket: [String]
 }
 type Mutation {
   checkUser(email: String, password: String): Login

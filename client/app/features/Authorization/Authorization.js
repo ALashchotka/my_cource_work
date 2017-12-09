@@ -5,7 +5,7 @@ import { graphql, compose } from 'react-apollo';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { toLower } from 'lodash';
+import { toLower, get, without } from 'lodash';
 
 import { styles } from './styles';
 import { USERINFO } from '../../constants';
@@ -52,10 +52,10 @@ class Authorization extends Component {
     checkUserMutation({ variables: { email, password }})
     .then(({ data }) => {
       console.warn(data);
-      const { message, token, username, isAdmin } = data.checkUser;
+      const message = get(data.checkUser, 'message');
       if (message === 'Log in success') { 
-        setUserInfoAction({token, username, isAdmin});
-        setStorageValue(USERINFO, JSON.stringify({token, username, isAdmin}));
+        setUserInfoAction({ ...data.checkUser });
+        setStorageValue(USERINFO, JSON.stringify(data.checkUser));
         Actions.profile();
       } else this.showModal(message);
     })
