@@ -31,6 +31,9 @@ type Mutation {
   addClothing(name: String, price: Int, filter: String, topic: String, images: [String], sizes: [Int]): Clothing
   checkClothing(id: String): Clothing
   getClothings(something: String): [Clothing]
+  removeClothing(id: String): String
+  updateFavourites(email: String, id: String): String
+  updateBasket(email: String, id: String): String
 }
 type Query {
   email: String

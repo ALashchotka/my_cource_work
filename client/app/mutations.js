@@ -63,5 +63,12 @@ mutation checkClothing($id: String) {
     sizes
   } 
 }
+`;
 
-`
+export const removeClothingMutation = gql`
+mutation removeClothing($id: String) {
+  removeClothing(id: $id) {
+    id
+  }
+}
+`;

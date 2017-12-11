@@ -133,12 +133,8 @@ Authorization.propTypes = {
   setUserInfoAction: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  token: state.user.token
-});
-
 const mapDispatchToProps = dispatch => bindActionCreators({ setUserInfoAction }, dispatch);
 
 const AuthorizationWithMutations = compose(graphql(checkUserMutation, { name: 'checkUserMutation' }))(Authorization);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthorizationWithMutations);
+export default connect(() => {return {}}, mapDispatchToProps)(AuthorizationWithMutations);

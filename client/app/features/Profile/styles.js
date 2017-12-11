@@ -29,9 +29,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   button: {
-    backgroundColor: 'grey',
-    paddingTop: 10
+    backgroundColor: 'grey'
   },
+  favourites: {
+    marginBottom: 60
+  }
 });
 
 export { styles };

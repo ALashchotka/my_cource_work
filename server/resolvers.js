@@ -11,6 +11,7 @@ const resolveFunctions = {
         })
         .catch(e => console.log(e));
       if (userData) {
+        console.log(`${userData.email} connected`);
         return {
           token: `${userData.username}_${userData.username.length}`,
           message: 'Log in success',
@@ -51,13 +52,27 @@ const resolveFunctions = {
       let clothingData;
       const clothing = new ctx.constructor.Clothing();
       await clothing.findClothings()
-        .then((data) => {
-          clothingData = data;
-        });
+        .then((data) => { clothingData = data; });
       if (clothingData) {
         return clothingData;
       }
       return { message: 'Getting clothing failed' };
+    },
+    removeClothing: async function removeClothing(_, { id }, ctx) {
+      const clothing = new ctx.constructor.Clothing();
+      await clothing.removeClothing(id)
+        .then(data => console.log(data));
+      return id;
+    },
+    updateFavourites: async function updateFavourties(_, { email, id }, ctx) {
+      const user = new ctx.constructor.User();
+      await user.updateFavourties(email, id);
+      return id;
+    },
+    updateBasket: async function updateBasket(_, { email, id }, ctx) {
+      const user = new ctx.constructor.User();
+      await user.updateBasket(email, id);
+      return id;
     },
   },
 };

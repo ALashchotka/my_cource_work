@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.2)'
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    marginBottom: 15
   },
   picker: {
     marginHorizontal: 30,

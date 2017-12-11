@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Picker } from 'react-native';
+import { View, Text, StyleSheet, Button, Picker } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEmpty, filter } from 'lodash';
@@ -86,13 +86,13 @@ class Catalogue extends Component {
     return (
       <View style={styles.container}>
         {pickers}
-        <ShowIf condition={!isAdmin}>
-          <TouchableOpacity
+        <ShowIf condition={isAdmin}>
+          <Button
             style={styles.button}
             onPress={() => Actions.addClothing()}
-          >
-            <Text>Add Clothing</Text>
-          </TouchableOpacity>
+            title="Add clothing"
+            color="grey"
+          />
         </ShowIf>
         {catalogue}
         <TabNavigator />

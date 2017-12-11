@@ -32,12 +32,12 @@ const styles = {
     borderColor: 'white'
   },
   button: {
+    flex: 1,
     backgroundColor: 'grey',
-    paddingTop: 10,
-    marginBottom: 50
+    marginVertical: 20
   },
   sizes: {
-    paddingTop: 10,
+    paddingVertical: 10,
     flexDirection: 'row',
   },
   size: {
@@ -48,9 +48,10 @@ const styles = {
     color: 'black',
     fontSize: 20,
     paddingTop: 30
+  },
+  buttonsAdd: {
+    flexDirection: 'row',
   }
 };
 
-export {
-  styles
-};
+export { styles };

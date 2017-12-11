@@ -1,7 +1,8 @@
 import React, { Component, createElement } from 'react'
 import { Text, View, Image, Button} from 'react-native'
 import PropTypes, { element } from 'prop-types';
-import { find, map, forEach } from 'lodash';
+import { graphql, compose } from 'react-apollo';
+import { find, map, forEach, isString } from 'lodash';
 import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
@@ -10,6 +11,7 @@ import { styles } from './styles';
 import { TabNavigator } from '../TabNavigator';
 import { addToFavouritesAction, removeFromFavouritesAction, addToBasketAction, removeFromBasketAction, removeFromBasket } from '../../actions';
 import { ShowIf } from '../../components';
+import { removeClothingMutation } from '../../mutations';
 
 class ClothingView extends Component {
   state = {
@@ -60,7 +62,9 @@ class ClothingView extends Component {
   }
 
   onPressDelete = () => {
-    
+    const id = this.props.clothingItem._id;
+    this.props.removeClothingMutation({ variables: { id }})
+      .then(({data}) => console.log(data));
   }
 
   makeSlides = () => {
@@ -106,7 +110,7 @@ class ClothingView extends Component {
   createSize = () => {
     const { sizes } = this.props.clothingItem;
     return map(sizes, (size) => (
-      <Text style={styles.size}>{size}</Text>
+      <Text style={styles.size}>{`${size} `}</Text>
     ));
   }
 
@@ -143,7 +147,7 @@ class ClothingView extends Component {
           <Text style={styles.size}>Sizes: </Text>
           {sizes}
         </View>
-        <ShowIf condition={token}>
+        <ShowIf condition={token} style={styles.buttonsAdd}>
           <Button
             style={styles.button}
             color="grey"
@@ -169,6 +173,7 @@ ClothingView.propTypes = {
   removeFromFavouritesAction: PropTypes.func.isRequired,
   addToBasketAction: PropTypes.func.isRequired,
   removeFromBasketAction: PropTypes.func.isRequired,
+  removeClothingMutation: PropTypes.func.isRequired,
   favourites: PropTypes.array.isRequired,
   basket: PropTypes.array.isRequired,
   isAdmin: PropTypes.bool.isRequired,
@@ -185,4 +190,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({ addToFavouritesAction, removeFromFavouritesAction, addToBasketAction, removeFromBasketAction }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClothingView);
+const ClothingViewWithMutations = compose(graphql(removeClothingMutation, { name: 'removeClothingMutation' }))(ClothingView);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClothingViewWithMutations);

@@ -64,7 +64,7 @@ class Profile extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.buttonGoToCatalogue, {marginTop: 50}]}
-            onPress={() => { this.props.setUserInfoAction(); Actions.profile() }}
+            onPress={() => { this.props.setUserInfoAction(); Actions.authorization() }}
           >
             <Text style={styles.buttonText}>Logout</Text>
           </TouchableOpacity>
@@ -77,7 +77,7 @@ class Profile extends Component {
         <Button
           style={styles.button}
           color="grey"
-          title={`Buy. Cost: ${this.state.cost}`}
+          title={`Cost: ${this.state.cost}`}
           onPress={this.onPress}
         />
       </View>
