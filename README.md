@@ -4,6 +4,8 @@ Application name: Bolid
 
 Platforms: Android 4.0.0 and higher
 
+* Recommended Google Pixel 8.0 on Genymotion
+
 Technologies:
 * React Native
 * Apollo
