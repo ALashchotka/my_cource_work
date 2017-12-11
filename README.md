@@ -1,16 +1,12 @@
-# Course work for Network Application Programming
+# Course work
 
 Application name: Bolid
 
-Platforms: Android
+Platforms: Android 4.0.0 and higher
 
 Technologies:
 * React Native
 * Apollo
 * MongoDB
-* NodeJS
-* Jest
-
-## Description
-
-Application allow to book events or entertainment stuff. 
+* NodeJS (Express)
+* GraphQL 
